@@ -14,7 +14,7 @@ public class CouponSystemApplication {
 		System.out.println("Start");
 		ApplicationContext ctx = SpringApplication.run(CouponSystemApplication.class, args);
 		System.out.println("End");
-
+		System.out.println("yael");
 		// TODO: I have a problem in CompanyServiceTest...
 		//  somehow it doesn't add the coupon. there is also a problem with get company coupons...
 
