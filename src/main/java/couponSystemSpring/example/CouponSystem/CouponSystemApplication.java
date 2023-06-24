@@ -15,10 +15,9 @@ public class CouponSystemApplication {
 		ApplicationContext ctx = SpringApplication.run(CouponSystemApplication.class, args);
 		System.out.println("End");
 
-		// TODO: I have a problem in CompanyServiceTest...
-		//  somehow it doesn't add the coupon. there is also a problem with get company coupons...
-
-		// TODO: to see the recording about the Tokens.. security, and after that to start doing tests.
+		//TODO: problems in companyTest and customerTest
+		//TODO: I don't have a table of company_vs_coupons in the database...
+		// TODO: to see the recording about the Tokens...
 		// TODO: to build the controllers
 	}
 }
