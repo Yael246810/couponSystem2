@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 @Component
 @Lazy
 public class LoginManager {
-//TODO: I don't understand if I need these lines with the compilation error
     @Autowired
     private AdminService adminService;
     @Autowired
@@ -31,17 +30,15 @@ public class LoginManager {
                     return (ClientService) adminService;
                 }
                 break;
+
             case COMPANY:
                 if (((ClientService)companyService).login(email,password)){
-                    int id = companyService.getIdFromDB(email);
-                    //((CompanyService) companyService).setCompanyId(id);
                     return (ClientService) companyService;
                 }
                 break;
+
             case CUSTOMER:
                 if (((ClientService)customerService).login(email,password)){
-                    int id = ((CustomerService) customerService).getIdFromDB(email);
-                   // ((CustomerService) customerService).setCustomerId(id);
                     return (ClientService) customerService;
                 }
                 break;

@@ -24,18 +24,13 @@ public class CompanyController {
     @Autowired
     private TokenService tokenService;
 
-    @GetMapping("login/company")
+    @PostMapping("login/company")
     boolean login(@RequestHeader(value = "Authorization") UUID token, @RequestParam String email, @RequestParam String password) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.COMPANY)) {
             throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_USER_NOT_ALLOWED);
         }
         return ((ClientService) companyService).login(email, password);
     }
-        //TODO: do I really need getIdFromDB? for a customer?
-//        @GetMapping("DB/id")
-//        int getIdFromDB (@RequestParam String email){
-//            return companyService.getIdFromDB(email);
-//        }
         @PostMapping
         @ResponseStatus(HttpStatus.CREATED)
         void addCoupon (@RequestHeader(value = "Authorization") UUID token,@RequestBody Coupon coupon) throws CouponSystemException {

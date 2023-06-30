@@ -107,7 +107,7 @@ public class AdminServiceTest implements CommandLineRunner {
         try {
             var companyOptional = adminService.getSingleCompany(13);
             companyToDelete = companyOptional.orElseThrow(() -> new Exception("company does not exist"));
-            adminService.deleteCompany(companyToDelete);
+            adminService.deleteCompany(companyToDelete.getId(),companyToDelete);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -115,10 +115,10 @@ public class AdminServiceTest implements CommandLineRunner {
         Company companyToDelete1 = null;
         var companyOptional = adminService.getSingleCompany(11);
         companyToDelete1 = companyOptional.orElseThrow(()->new Exception("cannot delete company"));
-        adminService.deleteCompany(companyToDelete1);
+        adminService.deleteCompany(companyToDelete1.getId(),companyToDelete1);
         System.out.println(adminService.getAllCompanies());
         Company companyWithCoupon = adminService.getSingleCompany(7).orElseThrow();
-        adminService.deleteCompany(companyWithCoupon);
+        adminService.deleteCompany(companyWithCoupon.getId(),companyWithCoupon);
         System.out.println("------------------------------------------------------------------------------");
 
         // get all companies method//

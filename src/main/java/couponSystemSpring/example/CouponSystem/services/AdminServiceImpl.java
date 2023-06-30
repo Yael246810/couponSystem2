@@ -39,7 +39,6 @@ public class AdminServiceImpl extends ClientService implements AdminService{
 
     @Override
     public void updateCompany(Company company) throws CouponSystemException {
-        // TODO: to check if this method is reasonable. I stopped here
         int companyId = company.getId();
         if (!companyRepository.existsById(companyId)) {
             throw new CouponSystemException(ErrorMessage.UPDATE_COMPANY_ID_NOT_EXISTS);
@@ -50,9 +49,9 @@ public class AdminServiceImpl extends ClientService implements AdminService{
         }
         this.companyRepository.saveAndFlush(company);
     }
+    //TODO: to check if I really need to put Company company
     @Override
-    public void deleteCompany(Company company) throws CouponSystemException {
-        int companyId = company.getId();
+    public void deleteCompany(int companyId,Company company) throws CouponSystemException {
         if (!companyRepository.existsById(companyId)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_DELETE_COMPANY_ID_NOT_EXISTS);
         }

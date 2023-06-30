@@ -1,14 +1,13 @@
 package couponSystemSpring.example.CouponSystem.controllers;
 
+import couponSystemSpring.example.CouponSystem.beans.Company;
 import couponSystemSpring.example.CouponSystem.beans.User;
 import couponSystemSpring.example.CouponSystem.exceptions.CouponSystemException;
+import couponSystemSpring.example.CouponSystem.login.LoginManager;
 import couponSystemSpring.example.CouponSystem.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -17,15 +16,11 @@ import java.util.UUID;
 public class AuthController {
     @Autowired
     private AuthService authService;
-//    @PostMapping("register")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public void register(User user) throws CouponSystemException {
-//        authService.register(user);
-//    }
 
     @PostMapping("login")
     @ResponseStatus(HttpStatus.CREATED)
-    public UUID login(User user) throws CouponSystemException {
+    public UUID login(@RequestBody User user) throws CouponSystemException {
+        System.out.println("Login process started the user: " + user);
         return authService.login(user);
     }
 }

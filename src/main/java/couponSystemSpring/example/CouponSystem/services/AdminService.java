@@ -11,7 +11,7 @@ public interface AdminService {
     void add(Company company) throws Exception;
     int getIdFromDB(String email);
     void updateCompany(Company company) throws CouponSystemException;
-    void deleteCompany(Company company) throws CouponSystemException;
+    void deleteCompany(int companyId,Company company) throws CouponSystemException;
     List<Company> getAllCompanies();
     Optional<Company> getSingleCompany(int companyId) throws CouponSystemException;
     void addCustomer(Customer customer) throws CouponSystemException;

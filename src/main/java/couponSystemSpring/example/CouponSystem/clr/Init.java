@@ -214,22 +214,28 @@ public class Init implements CommandLineRunner {
                 .build();
 
         User u2 = User.builder()
-                .id(0)
+                .id(company4.getId())
                 .email("Fox@gmail.com")
                 .password("1234")
                 .type(ClientType.COMPANY)
                 .build();
 
         User u3 = User.builder()
-                .id(0)
+                .id(c1.getId())
                 .email("Roni@gmail.com")
                 .password("1234")
                 .type(ClientType.CUSTOMER)
                 .build();
 
-        userRepository.saveAll(List.of(u1,u2,u3));
-        userRepository.findAll().forEach(System.out::println);
+        User u4 = User.builder()
+                .id(c2.getId())
+                .email("Noam@gmail.com")
+                .password("1234")
+                .type(ClientType.CUSTOMER)
+                .build();
 
+        userRepository.saveAll(List.of(u1,u2,u3,u4));
+        userRepository.findAll().forEach(System.out::println);
     }
 }
 

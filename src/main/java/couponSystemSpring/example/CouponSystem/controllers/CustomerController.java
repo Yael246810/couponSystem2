@@ -25,18 +25,13 @@ public class CustomerController {
     private CustomerService customerService;
     @Autowired
     private TokenService tokenService;
-    @GetMapping("login/customer")
+    @PostMapping("login/customer")
     boolean login(@RequestHeader(value = "Authorization") UUID token,@RequestParam String email, @RequestParam String password) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
             throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_USER_NOT_ALLOWED);
         }
         return ((ClientService) customerService).login(email,password);
     }
-    //TODO: do I really need getIdFromDB? for a customer?
-//    @GetMapping("DB/id")
-//    int getIdFromDB(@RequestParam(required = true) String email){
-//        return customerService.getIdFromDB(email);
-//    }
     @PostMapping("purchase/coupon/{customerId}")
     @ResponseStatus(HttpStatus.CREATED)
     void purchaseCoupon(@RequestHeader(value = "Authorization") UUID token,@RequestBody Coupon coupon, @PathVariable int customerId) throws Exception {

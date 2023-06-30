@@ -15,8 +15,8 @@ import lombok.NoArgsConstructor;
 
 public class User {
     @Id
-    @GeneratedValue
-    private long id; //Do I need this?
+    //@GeneratedValue
+    private long id;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)

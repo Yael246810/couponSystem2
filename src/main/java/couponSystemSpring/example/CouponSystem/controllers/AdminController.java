@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
- //TODO: to check if I need to add to update company method and others in the service also companyId.
 @RestController
 @RequestMapping("api/admin")
 public class AdminController {
@@ -24,33 +23,30 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private TokenService tokenService;
-    @GetMapping("login/admin")
+    @PostMapping("login/admin")
     boolean login(@RequestHeader(value = "Authorization") UUID token,@RequestParam String email, @RequestParam String password) throws CouponSystemException {
         if (!tokenService.isUserAllowed(token, ClientType.ADMIN)){
             throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_USER_NOT_ALLOWED);
         }
         return ((ClientService) adminService).login("admin@admin.com","1234");
     }
-    //TODO: do I really need getIdFromDB? for a customer?
-//    @GetMapping("DB/id")
-//    int getIdFromDB(@RequestParam String email){
-//        return adminService.getIdFromDB(email);
-//    }
-    @PostMapping("/api/admin/companies")
+
+    @PostMapping("companies")
     @ResponseStatus(HttpStatus.CREATED)
-    void add(@RequestHeader(value = "Authorization") UUID token,@RequestBody Company company) throws Exception {
+    void addCompany(@RequestHeader("Authorization") String token, @RequestBody Company company) throws Exception {
+        System.out.println("Adding the company: " + company + ", token: " +token);
         adminService.add(company);
     }
+
     @PutMapping("company/update")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void updateCompany(@RequestHeader(value = "Authorization") UUID token,@RequestBody Company company) throws CouponSystemException {
         adminService.updateCompany(company);
     }
-    //TODO: to check maybe I need to delete by Id....
-    @DeleteMapping("companies/delete")
+    @DeleteMapping("/company/{companyId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteCompany(@RequestHeader(value = "Authorization") UUID token,@RequestBody Company company) throws CouponSystemException {
-        adminService.deleteCompany(company);
+        adminService.deleteCompany(company.getId(), company);
     }
     @GetMapping("/api/admin/companies")
     List<Company> getAllCompanies(@RequestHeader(value = "Authorization") UUID token){
@@ -72,7 +68,7 @@ public class AdminController {
     }
     @DeleteMapping("{customerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCustomer(@RequestHeader(value = "Authorization") UUID token,@RequestBody Customer customer) throws CouponSystemException {
+    void deleteCustomer(@RequestHeader(value = "Authorization") UUID token,@PathVariable int customerId,@RequestBody Customer customer) throws CouponSystemException {
         adminService.deleteCustomer(customer);
     }
     @GetMapping("/api/admin/customers")
