@@ -13,10 +13,9 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.time.LocalDate;
-//TODO: there are problems with: purchase coupon method (with the sql query)
-//TODO: delete coupon for customer - also doesn't work, because purchase coupon doesn't work
+//TODO: there are problems with: get customer coupons
 @Component
-@Order(2)
+@Order(4)
 public class CustomerServiceTest implements CommandLineRunner {
     @Autowired
     CustomerService customerService;
@@ -35,11 +34,12 @@ public class CustomerServiceTest implements CommandLineRunner {
         System.out.println(((ClientService) customerService).login("Shanya@gmail.com", "1282"));
         TestUtils.test("Customer Service - login succeeded");
         System.out.println(((ClientService) customerService).login("Roni@gmail.com", "1234"));
+        System.out.println(((ClientService) customerService).login("Noam@gmail.com", "1234"));
         System.out.println("----------------------------------------------------------------------------");
 
         // Purchase coupon
         TestUtils.test("Customer Service - purchase coupon - customer already has the coupon");
-        Coupon coupon = new Coupon(2,adminService.getSingleCompany(2).orElseThrow(()->new RuntimeException()), Category.CLOTHING,null,"Shein - 20% off on all orders","Get 20% off on all orders over 200 shekels", Date.valueOf(LocalDate.of(2023,05,12)),Date.valueOf(LocalDate.of(2023,05,19)),500,50,"https://media.giphy.com/media/l0HlK8rC1z6vSMdKM/giphy.gif");
+        Coupon coupon = new Coupon(2,adminService.getSingleCompany(2).orElseThrow(()->new RuntimeException()), Category.CLOTHING,null,"Shein - 20% off on all orders","Get 20% off on all orders over 200 shekels", Date.valueOf(LocalDate.now().minusDays(3)),Date.valueOf(LocalDate.now().plusWeeks(1)),500,50,"https://media.giphy.com/media/l0HlK8rC1z6vSMdKM/giphy.gif");
         try{
             customerService.purchaseCoupon(coupon,1);
             customerService.purchaseCoupon(coupon,1);
@@ -48,61 +48,63 @@ public class CustomerServiceTest implements CommandLineRunner {
         }
 
         TestUtils.test("Customer Service - purchase coupon - amount = 0");
-        Coupon coupon1 = new Coupon(10,adminService.getSingleCompany(10).orElseThrow(()->new RuntimeException()), Category.ELECTRONICS,null,"Intel - Get 10% off on all processors","Upgrade your PC with Intel Core i7 processors and get 10% discount", Date.valueOf(LocalDate.of(2023,05,12)),Date.valueOf(LocalDate.of(2023,05,19)),0,200,"https://media.giphy.com/media/5VKbvrjxpVJCM/giphy.gif");
+        Coupon coupon1 = new Coupon(10,adminService.getSingleCompany(10).orElseThrow(()->new RuntimeException()), Category.ELECTRONICS,null,"Intel - Get 10% off on all processors","Upgrade your PC with Intel Core i7 processors and get 10% discount", Date.valueOf(LocalDate.now().minusDays(3)),Date.valueOf(LocalDate.now().plusWeeks(1)),0,200,"https://media.giphy.com/media/5VKbvrjxpVJCM/giphy.gif");
         try {
-            customerService.purchaseCoupon(coupon1,1);
+            customerService.purchaseCoupon(coupon1,2);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
         TestUtils.test("Customer Service - purchase coupon - coupon was expired");
-        Coupon coupon2 = new Coupon(1,adminService.getSingleCompany(8).orElseThrow(()->new RuntimeException()), Category.FOOD,null,"Coca Cola - Buy One Get One Free","Buy one Coca Cola and get another one for free", Date.valueOf(LocalDate.of(2023,05,12)),Date.valueOf(LocalDate.of(2023,05,11)),1000,10,"https://media.giphy.com/media/9M0m0Ub8rCkEUZaSZD/giphy.gif");
+        Coupon coupon2 = new Coupon(1,adminService.getSingleCompany(8).orElseThrow(()->new RuntimeException()), Category.FOOD,null,"Coca Cola - Buy One Get One Free","Buy one Coca Cola and get another one for free", Date.valueOf(LocalDate.now().minusDays(3)),Date.valueOf(LocalDate.now().plusWeeks(1)),1000,10,"https://media.giphy.com/media/9M0m0Ub8rCkEUZaSZD/giphy.gif");
         try {
-            customerService.purchaseCoupon(coupon2,3);
+            customerService.purchaseCoupon(coupon2,4);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
 
-//        TestUtils.test("Customer Service - purchase coupon - coupon was purchased successfully");
-//        Coupon coupon3 = new Coupon(6,adminService.getSingleCompany(6).orElseThrow(()->new RuntimeException()),Category.CLOTHING,null,"Castro - 10% off on all summer collections","Get 10% off on all summer collections over $100",Date.valueOf(LocalDate.of(2023,06,30)),Date.valueOf(LocalDate.of(2023,07,29)),500,100,"https://media.giphy.com/media/3o7abHxRc5CYg1qmYQ/giphy.gif");
-//        customerService.purchaseCoupon(coupon3,1);
-//        System.out.println("------------------------------------------------------------------------------------------");
-
-        // Delete customer coupon
-//        TestUtils.test("Customer Service - delete coupon for customer - customer id does not exist");
-//        try {
-//            customerService.deleteCouponPurchased(coupon2, 123);
-//        }catch (Exception e){
-//            System.out.println(e.getMessage());
-//        }
-//        TestUtils.test("Customer Service - delete coupon for customer - customer doesn't have this coupon");
-//        try {
-//            customerService.deleteCouponPurchased(coupon, 4);
-//        }catch (Exception e){
-//            e.getMessage();
-//        }
-//        TestUtils.test("Customer Service - delete coupon for customer - succeeded");
-//        customerService.deleteCouponPurchased(coupon,2);
-//        System.out.println("-----------------------------------------------------------------------------------------");
-
-        //get customer coupons
-        TestUtils.test("Customer Service - get customer coupons - succeeded");
-        System.out.println(customerService.getCustomerCoupons(1)); //somehow it returns null and not the customer coupons
+        TestUtils.test("Customer Service - purchase coupon - coupon was purchased successfully");
+        Coupon coupon3 = new Coupon(6,adminService.getSingleCompany(6).orElseThrow(()->new RuntimeException()),Category.CLOTHING,null,"Castro - 10% off on all summer collections","Get 10% off on all summer collections over $100",Date.valueOf(LocalDate.now().minusDays(3)),Date.valueOf(LocalDate.now().plusWeeks(1)),500,100,"https://media.giphy.com/media/3o7abHxRc5CYg1qmYQ/giphy.gif");
+        customerService.purchaseCoupon(coupon3,2);
         System.out.println("------------------------------------------------------------------------------------------");
 
-//        //get customer coupons by category
+        // Delete customer coupon
+        TestUtils.test("Customer Service - delete coupon for customer - customer id does not exist");
+        try {
+            customerService.deleteCouponPurchased(coupon2, 123);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        TestUtils.test("Customer Service - delete coupon for customer - customer doesn't have this coupon");
+        try {
+            customerService.deleteCouponPurchased(coupon, 7);
+        }catch (Exception e){
+            e.getMessage();
+        }
+        TestUtils.test("Customer Service - delete coupon for customer - succeeded");
+        try {
+            customerService.deleteCouponPurchased(coupon, 2);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        System.out.println("-----------------------------------------------------------------------------------------");
+
+       //get customer coupons
+        TestUtils.test("Customer Service - get customer coupons - succeeded");
+        System.out.println(customerService.getCustomerCoupons(2)); //somehow it returns null and not the customer coupons
+        System.out.println("------------------------------------------------------------------------------------------");
+
+        //get customer coupons by category
         TestUtils.test("Customer Service - get customer coupons by category - succeeded");
-        System.out.println(customerService.getCustomerCouponsByCategory(Category.CLOTHING,1));
+        System.out.println(customerService.getCustomerCouponsByCategory(Category.CLOTHING,2));
         System.out.println("-------------------------------------------------------------------------------------------");
 
         // get customer coupons by max price
         TestUtils.test("Customer Service - get customer coupons by max price - succeeded");
-        System.out.println(customerService.getCustomerCouponsUntilMaxPrice(100.0,1));
+        System.out.println(customerService.getCustomerCouponsUntilMaxPrice(100.0,2));
 
         // get customer details
-        TestUtils.test("Customer facade - get customer details - succeeded");
+        TestUtils.test("Customer Service - get customer details - succeeded");
         System.out.println(((ClientService) customerService).login("Noam@gmail.com", "1234"));
-        System.out.println(customerService.getCustomerDetails(1));
-
-
+        System.out.println(customerService.getCustomerDetails(2));
     }
 }

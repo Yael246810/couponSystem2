@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyServiceImpl extends ClientService implements CompanyService {
@@ -41,12 +42,11 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
     @Override
     public void addCoupon(Coupon coupon) throws CouponSystemException {
         long couponId = coupon.getId();
-        int couponCompanyId = coupon.getCompany().getId();
         Company company = coupon.getCompany();
         String title = coupon.getTitle();
-        //TODO: to check if the logic is reasonable here
-        if (!couponRepository.existsById((int) couponId)) {
-            boolean companyContainsCouponWithThisTitle = couponRepository.existsByTitleAndCompany( title,coupon.getCompany());
+
+        if (!couponRepository.existsById(couponId)) {
+            boolean companyContainsCouponWithThisTitle = couponRepository.existsByTitleAndCompany(title, coupon.getCompany());
 
             if (companyContainsCouponWithThisTitle) {
                 throw new CouponSystemException(ErrorMessage.COUPON_TITLE_ALREADY_EXISTS);
@@ -54,21 +54,20 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
             couponRepository.save(coupon);
             company.getCoupons().add(coupon);
         }
-        if (couponRepository.existsById((int) coupon.getId())) {
+        if (couponRepository.existsById(couponId)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_ADD_COUPON_ALREADY_EXISTS);
         }
     }
 
     @Override
     public void updateCoupon(int couponId, Coupon coupon) throws CouponSystemException {
-        if (!couponRepository.existsById(couponId)) {
+        if (!couponRepository.existsById((long) couponId)) {
             throw new CouponSystemException(ErrorMessage.UPDATE_COUPON_ID_NOT_EXISTS);
         }
         if (couponId != coupon.getId()) {
             throw new CouponSystemException(ErrorMessage.UPDATE_COUPON_CANNOT_UPDATE_ID);
         }
-        //TODO: to check that this if statement is ok
-        if (coupon.getCompany().getId() != couponRepository.findById(couponId).get().getCompany().getId()) {
+        if (coupon.getCompany().getId() != couponRepository.findById((long) couponId).get().getCompany().getId()) {
             throw new CouponSystemException(ErrorMessage.CANNOT_UPDATE_COUPON_CANNOT_UPDATE_COMPANY_ID);
         }
         this.couponRepository.saveAndFlush(coupon);
@@ -77,7 +76,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
     @Override
     public void deleteCoupon(Coupon coupon) throws CouponSystemException {
         int couponId = (int) coupon.getId();
-        if (!couponRepository.existsById(couponId)) {
+        if (!couponRepository.existsById((long) couponId)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_DELETE_COUPON_ID_DOESNT_EXIST);
         }
         couponRepository.delete(coupon);
@@ -91,13 +90,15 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         if (!loggedInCompanies.contains(companyEmail)) {
             throw new CouponSystemException(ErrorMessage.COMPANY_DID_NOT_LOGIN);
         }
-        return companyRepository.findByCouponsCompanyId(companyId);
+//        return companyRepository.findByCouponsCompanyId(companyId);
+        // TODO: 28/06/2023 NOT LIKE A BOSS
+        return company.getCoupons();
     }
 
     @Override
     public List<Coupon> getCompanyCouponsByCategory(Category category, int companyId) throws CouponSystemException {
         String companyEmail = companyRepository.findById(companyId).getEmail();
-
+        Company company = companyRepository.findById(companyId);
         if (!loggedInCompanies.contains(companyEmail)) {
             throw new CouponSystemException(ErrorMessage.COMPANY_DID_NOT_LOGIN);
         }
@@ -106,7 +107,12 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         if (coupons == null || coupons.isEmpty()) {
             return new ArrayList<>();
         }
-        return couponRepository.findByCompany_IdAndCategory(category, companyId);
+        // TODO: 28/06/2023 NOT LIKE A BOSS
+        //return couponRepository.findByCompany_IdAndCategory(category, companyId);
+        return company.getCoupons()
+                .stream()
+                .filter(coupon -> coupon.getCategory() == category)
+                .collect(Collectors.toList());
     }
 
 
@@ -117,15 +123,25 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         if (!loggedInCompanies.contains(email)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_GET_COMPANY_COUPONS_BY_PRICE);
         }
-        return couponRepository.findByCompany_IdAndPriceLessThan(maxPrice, companyId);
+        // TODO: 28/06/2023 NOT LIKE A BOSS
+        //return couponRepository.findByCompany_IdAndPriceLessThan(maxPrice, companyId);
+        return company.getCoupons()
+                .stream()
+                .filter(coupon -> coupon.getPrice() <= maxPrice)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Company getCompanyDetails(int companyId) throws CouponSystemException {
         Company company = companyRepository.findById(companyId);
-        String email = company.getEmail();
-        if (!loggedInCompanies.contains(email)) {
+
+        if (!companyRepository.existsById(companyId)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_GET_COMPANY_DETAILS_INVALID_ID);
+        }
+        String email = company.getEmail();
+
+        if (!loggedInCompanies.contains(email)) {
+            throw new CouponSystemException(ErrorMessage.CANNOT_GET_COMPANY_DETAILS_NOT_LOGGED_IN);
         }
         return companyRepository.findById(companyId);
     }

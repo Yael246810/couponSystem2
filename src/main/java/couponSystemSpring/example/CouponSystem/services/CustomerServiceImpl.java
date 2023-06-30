@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class CustomerServiceImpl extends ClientService implements CustomerService{
@@ -22,8 +19,8 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
         boolean login = false;
         if (customerRepository.existsByEmail(email)) {
             int customerId = customerRepository.getIdByEmail(email);
-            String customerEmail = customerRepository.findById(customerId).getEmail();
-            String customerPassword = customerRepository.findById(customerId).getPassword();
+            String customerEmail = customerRepository.findById(customerId).orElseThrow().getEmail();
+            String customerPassword = customerRepository.findById(customerId).orElseThrow().getPassword();
 
             if (customerEmail.equals(email) && customerPassword.equals(password)) {
                 if (loggedInCustomers.add(customerEmail)) {
@@ -39,8 +36,12 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
         return this.customerRepository.getIdByEmail(email);
     }
     @Override
-    public void purchaseCoupon(Coupon coupon, int customerId) throws CouponSystemException {
-        List<Coupon> customerCoupons = customerRepository.findByCouponsId(customerId);
+    public void purchaseCoupon(Coupon coupon, int customerId) throws Exception {
+        // TODO: 28/06/2023 NOT LIKE A BOSS
+        Customer customer = customerRepository.findById(customerId).orElseThrow((()->new Exception("customer does not exist")));
+        List<Coupon> customerCoupons = customer.getCoupons();
+
+       // List<Coupon> customerCoupons = customerRepository.findByCouponsId(customerId);
         int couponId = (int) coupon.getId();
         if (customerCoupons != null && !customerCoupons.isEmpty()) {
             //TODO: maybe I can don't need what we did with the var?
@@ -62,29 +63,33 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
 //TODO: I need to check if it deletes also the coupon from the customer_vs_coupons....
     @Override
     public void deleteCouponPurchased(Coupon coupon, int customerId) throws CouponSystemException {
-        if (!customerRepository.findById(customerId).getCoupons().contains(coupon)){
+        if (!customerRepository.findById(customerId).orElseThrow().getCoupons().contains(coupon)){
             throw new CouponSystemException(ErrorMessage.CUSTOMER_DOES_NOT_HAVE_THIS_COUPON);
         }
-        customerRepository.findById(customerId).getCoupons().remove(coupon);
+        customerRepository.findById(customerId).orElseThrow().getCoupons().remove(coupon);
         couponRepository.delete(coupon);
     }
     @Override
-    public List<Coupon> getCustomerCoupons(int customerId) throws CouponSystemException {
-        Customer customer = customerRepository.findById(customerId);
-        String email = customer.getEmail();
+    public List<Coupon> getCustomerCoupons(int customerId) throws Exception {
+        Optional<Customer> customer = customerRepository.findById(customerId);
+        String email = customer.orElseThrow().getEmail();
 
         if (!loggedInCustomers.contains(email)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_GET_CUSTOMER_COUPONS);
         }
-        if (customer.getCoupons() != null && !customer.getCoupons().isEmpty()) {
-            return customerRepository.findByCouponsId(customerId);
+
+        if (customer.orElseThrow().getCoupons() != null && !customer.orElseThrow().getCoupons().isEmpty()) {
+            // TODO: 28/06/2023 NOT WORKS LIKE A BOSS
+            Customer customer2 = customerRepository.findById(customerId).orElseThrow((()->new Exception("FOYS")));
+            List<Coupon> customerCoupons = customer2.getCoupons();
+            return  customerCoupons;
         }
         return new ArrayList<>();
     }
 
     @Override
-    public List<Coupon> getCustomerCouponsByCategory(Category category, int customerId) throws CouponSystemException {
-        String customerEmail = customerRepository.findById(customerId).getEmail();
+    public List<Coupon> getCustomerCouponsByCategory(Category category, int customerId) throws Exception {
+        String customerEmail = customerRepository.findById(customerId).orElseThrow().getEmail();
 
         if (!loggedInCustomers.contains(customerEmail)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_GET_CUSTOMER_COUPONS_BY_CATEGORY);
@@ -97,7 +102,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
 
     @Override
     public List<Coupon> getCustomerCouponsUntilMaxPrice(double maxPrice, int customerId) throws CouponSystemException {
-        String customerEmail = customerRepository.findById(customerId).getEmail();
+        String customerEmail = customerRepository.findById(customerId).orElseThrow().getEmail();
 
         if (loggedInCustomers.contains(customerEmail)) {
             couponRepository.findByIdAndPriceLessThan(maxPrice,customerId);
@@ -106,8 +111,8 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
     }
 
     @Override
-    public Customer getCustomerDetails(int customerId) throws CouponSystemException {
-        String customerEmail = customerRepository.findById(customerId).getEmail();
+    public Optional<Customer> getCustomerDetails(int customerId) throws CouponSystemException {
+        String customerEmail = customerRepository.findById(customerId).orElseThrow().getEmail();
 
         if (!loggedInCustomers.contains(customerEmail)) {
             throw new CouponSystemException(ErrorMessage.CUSTOMER_DETAILS_ARE_NOT_AVAILABLE);

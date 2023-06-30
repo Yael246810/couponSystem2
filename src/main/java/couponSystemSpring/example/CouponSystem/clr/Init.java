@@ -1,13 +1,12 @@
 package couponSystemSpring.example.CouponSystem.clr;
 
-import couponSystemSpring.example.CouponSystem.beans.Category;
-import couponSystemSpring.example.CouponSystem.beans.Company;
-import couponSystemSpring.example.CouponSystem.beans.Coupon;
-import couponSystemSpring.example.CouponSystem.beans.Customer;
+import couponSystemSpring.example.CouponSystem.beans.*;
 import couponSystemSpring.example.CouponSystem.repositories.CompanyRepository;
 import couponSystemSpring.example.CouponSystem.repositories.CouponRepository;
 import couponSystemSpring.example.CouponSystem.repositories.CustomerRepository;
+import couponSystemSpring.example.CouponSystem.repositories.UserRepository;
 import couponSystemSpring.example.CouponSystem.utils.Art;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -15,19 +14,19 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 @Component
 @Order(1)
 public class Init implements CommandLineRunner {
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
     @Autowired
-    CompanyRepository companyRepository;
+    private CompanyRepository companyRepository;
     @Autowired
-    CouponRepository couponRepository;
-
+    private CouponRepository couponRepository;
+    @Autowired
+    private UserRepository userRepository;
     @Override
     public void run(String... args) throws Exception {
 
@@ -206,6 +205,31 @@ public class Init implements CommandLineRunner {
         List<Coupon> coupons = List.of(coupon1, coupon2, coupon3, coupon4, coupon5, coupon6, coupon7, coupon8, coupon9, coupon10);
         couponRepository.saveAll(coupons);
         couponRepository.findAll().forEach(System.out::println);
+
+        User u1 = User.builder()
+                .id(0)
+                .email("admin@admin.com")
+                .password("admin")
+                .type(ClientType.ADMIN)
+                .build();
+
+        User u2 = User.builder()
+                .id(0)
+                .email("Fox@gmail.com")
+                .password("1234")
+                .type(ClientType.COMPANY)
+                .build();
+
+        User u3 = User.builder()
+                .id(0)
+                .email("Roni@gmail.com")
+                .password("1234")
+                .type(ClientType.CUSTOMER)
+                .build();
+
+        userRepository.saveAll(List.of(u1,u2,u3));
+        userRepository.findAll().forEach(System.out::println);
+
     }
 }
 

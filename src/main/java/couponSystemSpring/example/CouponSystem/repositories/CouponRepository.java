@@ -12,7 +12,7 @@ import java.util.List;
 
 //TODO: to create a query that delete all the expired coupons and then add it to the thread
 @Repository
-public interface CouponRepository extends JpaRepository<Coupon,Integer> {
+public interface CouponRepository extends JpaRepository<Coupon,Long> {
     //TODO: do I need a query that delete a coupon from a customer?
 //    @Query(value = "DELETE FROM `coupon-system`.customers_vs_coupons WHERE customer_id =?",nativeQuery = true)
 //    void deleteCouponPurchase(int customerID, int couponID);
@@ -24,4 +24,6 @@ public interface CouponRepository extends JpaRepository<Coupon,Integer> {
     List<Coupon> findByCompany_IdAndPriceLessThan(double maxPrice, int companyId);
     void deleteByEndDateBefore(LocalDate endDate);
     //TODO: to see which one of them is working
+
+
 }

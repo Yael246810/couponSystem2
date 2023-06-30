@@ -3,7 +3,6 @@ package couponSystemSpring.example.CouponSystem.clr;
 import couponSystemSpring.example.CouponSystem.beans.Company;
 import couponSystemSpring.example.CouponSystem.beans.Customer;
 import couponSystemSpring.example.CouponSystem.services.AdminService;
-import couponSystemSpring.example.CouponSystem.services.AdminServiceImpl;
 import couponSystemSpring.example.CouponSystem.services.ClientService;
 import couponSystemSpring.example.CouponSystem.utils.TestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-//@Component
-//@Order(2)
+@Component
+@Order(2)
 public class AdminServiceTest implements CommandLineRunner {
     @Autowired
     AdminService adminService;
@@ -61,7 +60,7 @@ public class AdminServiceTest implements CommandLineRunner {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        TestUtils.test("Admin service -  - succeeded");
+        TestUtils.test("Admin service - succeeded");
 
         companyToAdd = new Company("new company", "new.company@info.com", "1234");
         adminService.add(companyToAdd);
@@ -94,11 +93,9 @@ public class AdminServiceTest implements CommandLineRunner {
             System.out.println(e.getMessage());
         }
         TestUtils.test("Admin service - succeeded to update company");
-        companyToUpdate = adminService.getSingleCompany(1).orElseThrow(() -> new Exception("company does not exist"));
+        companyToUpdate = adminService.getSingleCompany(9).orElseThrow(() -> new Exception("company does not exist"));
         companyToUpdate.setEmail("updated.mail@info.com");
         companyToUpdate.setPassword("1111");
-        companyToUpdate.setName("Shein");
-        companyToUpdate.setId(2);
         adminService.updateCompany(companyToUpdate);
         adminService.getAllCompanies().forEach(System.out::println);
         System.out.println("----------------------------------------------------------------------");
@@ -116,7 +113,7 @@ public class AdminServiceTest implements CommandLineRunner {
         }
         TestUtils.test("Admin service - delete company - succeeded");
         Company companyToDelete1 = null;
-        var companyOptional = adminService.getSingleCompany(1);
+        var companyOptional = adminService.getSingleCompany(11);
         companyToDelete1 = companyOptional.orElseThrow(()->new Exception("cannot delete company"));
         adminService.deleteCompany(companyToDelete1);
         System.out.println(adminService.getAllCompanies());
@@ -142,7 +139,7 @@ public class AdminServiceTest implements CommandLineRunner {
 
         //Update customer
         TestUtils.test("Admin service - update customer - id does not exist");
-        Optional<Customer> optionalCustomer = adminService.getSingleCustomer(companyToUpdate.getId());
+        Optional<Customer> optionalCustomer = adminService.getSingleCustomer(companyToUpdate.getId()).orElseThrow();
         Customer customerToUpdate = optionalCustomer.get();
         try {
             adminService.updateCustomer(9000, customerToUpdate);
@@ -151,14 +148,14 @@ public class AdminServiceTest implements CommandLineRunner {
         }
 
         TestUtils.test("Admin service - succeeded to update customer");
-        customerToUpdate = adminService.getSingleCustomer(1).orElseThrow(() -> new Exception("customer does not exist"));
+        customerToUpdate = adminService.getSingleCustomer(1).orElseThrow().orElseThrow(() -> new Exception("customer does not exist"));
         customerToUpdate.setEmail("noga.mail@info.com");
         customerToUpdate.setPassword("1111");
         customerToUpdate.setFirstName("Noga");
         customerToUpdate.setLastName("Barak");
 
         adminService.updateCustomer(customerToUpdate.getId(), customerToUpdate);
-        Customer updatedCustomer = adminService.getSingleCustomer(1).orElseThrow();
+        Customer updatedCustomer = adminService.getSingleCustomer(1).orElseThrow().orElseThrow();
         System.out.println(updatedCustomer);
         System.out.println("-------------------------------------------------------------------");
 
@@ -167,7 +164,7 @@ public class AdminServiceTest implements CommandLineRunner {
         Customer customerToDelete = null;
 
         try {
-            Optional<Customer> customerOptional = adminService.getSingleCustomer(13);
+            Optional<Customer> customerOptional = adminService.getSingleCustomer(13).orElseThrow();
             customerToDelete = customerOptional.orElseThrow(() -> new Exception("customer does not exist"));
             adminService.deleteCustomer(customerToDelete);
         } catch (Exception e) {
@@ -176,7 +173,7 @@ public class AdminServiceTest implements CommandLineRunner {
 
         TestUtils.test("Admin service - delete customer - delete customer but coupon list is empty or null");
         try {
-            Optional<Customer> customerOptional = adminService.getSingleCustomer(3);
+            Optional<Customer> customerOptional = adminService.getSingleCustomer(3).orElseThrow();
             customerToDelete = customerOptional.orElseThrow(() -> new Exception("customer does not exist"));
             adminService.deleteCustomer(customerToDelete);
         } catch (Exception e) {
@@ -184,7 +181,7 @@ public class AdminServiceTest implements CommandLineRunner {
         }
 
         TestUtils.test("Admin service - delete customer - succeeded");
-        customerToDelete = adminService.getSingleCustomer(1).orElseThrow(() -> new Exception("customer does not exist"));;
+        customerToDelete = adminService.getSingleCustomer(1).orElseThrow(() -> new Exception("customer does not exist")).orElseThrow();;
         adminService.deleteCustomer(customerToDelete);
         adminService.getAllCustomers().forEach(System.out::println);
         System.out.println("------------------------------------------------------------------------------");
@@ -196,7 +193,7 @@ public class AdminServiceTest implements CommandLineRunner {
 
         //Get single customer
         TestUtils.test("Admin service - get single customer - succeeded");
-        Optional<Customer> getSingleCustomer = adminService.getSingleCustomer(2);
+        Optional<Customer> getSingleCustomer = adminService.getSingleCustomer(2).orElseThrow();
         System.out.println(getSingleCustomer);
         System.out.println("----------------------------------------------------------------");
     }

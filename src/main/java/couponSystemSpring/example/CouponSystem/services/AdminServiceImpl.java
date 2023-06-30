@@ -5,7 +5,7 @@ import couponSystemSpring.example.CouponSystem.beans.Customer;
 import couponSystemSpring.example.CouponSystem.exceptions.CouponSystemException;
 import couponSystemSpring.example.CouponSystem.exceptions.ErrorMessage;
 import org.springframework.stereotype.Service;
-
+// TODO: to check if after I changed it, everything still works
 import java.util.List;
 import java.util.Optional;
 
@@ -107,7 +107,7 @@ public class AdminServiceImpl extends ClientService implements AdminService{
     }
 
     @Override
-    public Optional<Customer> getSingleCustomer(int customerId) throws CouponSystemException {
+    public Optional<Optional<Customer>> getSingleCustomer(int customerId) throws CouponSystemException {
         if (!customerRepository.existsById(customerId)){
             throw new CouponSystemException(ErrorMessage.CANNOT_FIND_CUSTOMER_ID);
         }

@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
-// TODO: to understand how to activate this
-@Component
+// TODO: to understand how to activate this - it's already activated with @Schedualing.
+//@Component
 public class DailyRemoval {
     @Autowired
     private CouponRepository couponRepository;

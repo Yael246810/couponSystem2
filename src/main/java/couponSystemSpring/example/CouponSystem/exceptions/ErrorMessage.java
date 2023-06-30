@@ -42,7 +42,12 @@ public enum ErrorMessage {
     CANNOT_GET_CUSTOMER_COUPONS("cannot get customer's coupons because he didn't logged in"),
     CANNOT_GET_CUSTOMER_COUPONS_BY_CATEGORY("cannot get customer coupons by category because customer didn't logged in"),
     CUSTOMER_DETAILS_ARE_NOT_AVAILABLE("customer details are not available because customer didn't logged in"),
-    CANNOT_ADD_COUPON_ALREADY_EXISTS("cannot add coupon because the coupon already exists in the system");
+    CANNOT_ADD_COUPON_ALREADY_EXISTS("cannot add coupon because the coupon already exists in the system"),
+    SECURITY_EXCEPTION_CANNOT_CREATE_ADMIN_USER("cannot enter as admin"),
+    SECURITY_EXCEPTION_USER_EMAIL("cannot enter the system. user email already exists"),
+    SECURITY_EXCEPTION_USER_DOES_NOT_EXIST("your password or email is incorrect"),
+    SECURITY_EXCEPTION_USER_NOT_ALLOWED("user is not an admin and cannot enter as an admin");
+
     private String message;
     ErrorMessage(String message) {
         this.message = message;
