@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Entity
@@ -23,7 +24,7 @@ public class Coupon {
     private Company company;
     @Enumerated(EnumType.STRING)
     private Category category;
-    @ManyToMany(mappedBy = "coupons")
+    @ManyToMany(mappedBy = "coupons",cascade = CascadeType.REMOVE)
     @ToString.Exclude
     List<Customer>customers;
     private String title;
@@ -33,19 +34,22 @@ public class Coupon {
     private int amount;
     private double price;
     private String image;
-//
-//    public Coupon(int i, Company orElseThrow, Category movies, String s, String tta, Date valueOf, Date valueOf1, int i1, int i2, String http) {
-//    }
-//
-//    public Coupon(int companyId, Optional<Company> singleCompany, Category category, String title, String description, Date startDate, Date endDate, int amount, double price, String image) {
-//        this.company = getCompany();
-//        this.category = category;
-//        this.title = title;
-//        this.description = description;
-//        this.startDate = startDate;
-//        this.endDate = endDate;
-//        this.amount = amount;
-//        this.price = price;
-//        this.image = image;
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Coupon other = (Coupon) obj;
+        return id == other.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
     }
 

@@ -63,10 +63,15 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
 //TODO: I need to check if it deletes also the coupon from the customer_vs_coupons....
     @Override
     public void deleteCouponPurchased(Coupon coupon, int customerId) throws CouponSystemException {
-        if (!customerRepository.findById(customerId).orElseThrow().getCoupons().contains(coupon)){
+        var customer = customerRepository.findById(customerId);
+        var coupons = customer.orElseThrow().getCoupons();
+        boolean isCouponExists = coupons.contains(coupon);
+
+        if (!isCouponExists){
             throw new CouponSystemException(ErrorMessage.CUSTOMER_DOES_NOT_HAVE_THIS_COUPON);
         }
-        customerRepository.findById(customerId).orElseThrow().getCoupons().remove(coupon);
+        coupons.remove(coupon);
+        customerRepository.save(customer.orElseThrow());
         couponRepository.delete(coupon);
     }
     @Override

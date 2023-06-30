@@ -117,6 +117,8 @@ public class AdminServiceTest implements CommandLineRunner {
         companyToDelete1 = companyOptional.orElseThrow(()->new Exception("cannot delete company"));
         adminService.deleteCompany(companyToDelete1);
         System.out.println(adminService.getAllCompanies());
+        Company companyWithCoupon = adminService.getSingleCompany(7).orElseThrow();
+        adminService.deleteCompany(companyWithCoupon);
         System.out.println("------------------------------------------------------------------------------");
 
         // get all companies method//

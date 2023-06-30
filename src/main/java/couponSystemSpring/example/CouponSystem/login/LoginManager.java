@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 @Component
-//@Lazy
+@Lazy
 public class LoginManager {
 //TODO: I don't understand if I need these lines with the compilation error
     @Autowired
@@ -23,9 +23,7 @@ public class LoginManager {
     private CustomerService customerService;
     @Autowired
     private CompanyService companyService;
-    private LoginManager (){
 
-    }
     public ClientService login(String email, String password, ClientType clientType) throws CouponSystemException {
         switch (clientType){
             case ADMIN:

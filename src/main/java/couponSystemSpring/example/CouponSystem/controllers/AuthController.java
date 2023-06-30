@@ -17,11 +17,11 @@ import java.util.UUID;
 public class AuthController {
     @Autowired
     private AuthService authService;
-    @PostMapping("register")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void register(User user) throws CouponSystemException {
-        authService.register(user);
-    }
+//    @PostMapping("register")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public void register(User user) throws CouponSystemException {
+//        authService.register(user);
+//    }
 
     @PostMapping("login")
     @ResponseStatus(HttpStatus.CREATED)

@@ -16,16 +16,16 @@ public class AuthServiceImpl implements AuthService{
     private UserRepository userRepository;
     @Autowired
     private TokenService tokenService;
-    @Override
-    public void register(User user) throws CouponSystemException {
-        if (user.getType().equals(ClientType.ADMIN)){
-            throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_CANNOT_CREATE_ADMIN_USER);
-        }
-        if (userRepository.existsByEmail(user.getEmail())){
-            throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_USER_EMAIL);
-        }
-        userRepository.save(user);
-    }
+//    @Override
+//    public void register(User user) throws CouponSystemException {
+//        if (user.getType().equals(ClientType.ADMIN)){
+//            throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_CANNOT_CREATE_ADMIN_USER);
+//        }
+//        if (userRepository.existsByEmail(user.getEmail())){
+//            throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_USER_EMAIL);
+//        }
+//        userRepository.save(user);
+//    }
 
     @Override
     public UUID login(User user) throws CouponSystemException {

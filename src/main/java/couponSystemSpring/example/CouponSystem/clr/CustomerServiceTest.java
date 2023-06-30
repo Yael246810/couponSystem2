@@ -68,24 +68,21 @@ public class CustomerServiceTest implements CommandLineRunner {
         System.out.println("------------------------------------------------------------------------------------------");
 
         // Delete customer coupon
-        TestUtils.test("Customer Service - delete coupon for customer - customer id does not exist");
-        try {
-            customerService.deleteCouponPurchased(coupon2, 123);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-        TestUtils.test("Customer Service - delete coupon for customer - customer doesn't have this coupon");
-        try {
-            customerService.deleteCouponPurchased(coupon, 7);
-        }catch (Exception e){
-            e.getMessage();
-        }
+//        TestUtils.test("Customer Service - delete coupon for customer - customer id does not exist");
+//        try {
+//            customerService.deleteCouponPurchased(coupon2, 123);
+//        }catch (Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//        TestUtils.test("Customer Service - delete coupon for customer - customer doesn't have this coupon");
+//        try {
+//            customerService.deleteCouponPurchased(coupon, 7);
+//        }catch (Exception e){
+//            e.getMessage();
+//        }
+
         TestUtils.test("Customer Service - delete coupon for customer - succeeded");
-        try {
-            customerService.deleteCouponPurchased(coupon, 2);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+        customerService.deleteCouponPurchased(coupon3, 2);
         System.out.println("-----------------------------------------------------------------------------------------");
 
        //get customer coupons

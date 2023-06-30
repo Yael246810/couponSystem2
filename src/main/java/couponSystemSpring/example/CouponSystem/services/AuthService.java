@@ -10,6 +10,6 @@ import java.util.UUID;
 @Service
 public interface AuthService {
 
-    void register(@RequestBody User user) throws CouponSystemException;
+    //void register(@RequestBody User user) throws CouponSystemException;
     UUID login(@RequestBody User user) throws CouponSystemException;
 }
