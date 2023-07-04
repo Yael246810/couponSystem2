@@ -21,16 +21,18 @@ public class Coupon {
     private long id;
     @ManyToOne
     @ToString.Exclude
-   @JsonIgnore
-    //@JsonManagedReference
+    @JsonIgnore //TODO: originally it was only here
+    @JoinColumn(name = "company_id")
     private Company company;
     @Enumerated(EnumType.STRING)
     private Category category;
     @ManyToMany(mappedBy = "coupons",cascade = CascadeType.REMOVE)
     @ToString.Exclude
-    //@JsonBackReference
+    @JsonIgnore
     List<Customer>customers;
+    @Column(length = 50,nullable = false)
     private String title;
+    @Column(length = 100,nullable = false)
     private String description;
     private Date startDate;
     private Date endDate;

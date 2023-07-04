@@ -1,6 +1,5 @@
 package couponSystemSpring.example.CouponSystem.beans;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,10 +18,12 @@ public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(length = 30)
     private String name;
+    @Column(length = 30)
     private String email;
+    @Column(length = 30)
     private String password;
-    //@JsonBackReference
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true,mappedBy = "company")
     private List<Coupon> coupons = new ArrayList<>();
 

@@ -18,12 +18,16 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(length = 30)
     private String firstName;
+    @Column(length = 30)
     private String lastName;
+    @Column(length = 40)
     private String email;
+    @Column(length = 20)
     private String password;
-    //@JsonManagedReference
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    //@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    @ManyToMany
     private List<Coupon>coupons;
 
     public Customer(String firstName, String lastName, String email, String password) {
