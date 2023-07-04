@@ -1,0 +1,88 @@
+# Coupon system project 2
+
+# by @Yael Cohen
+# email: yaelcohen691@gmail.com
+
+
+# Maven repository:
+mySQL driver 8.0.32- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j/8.0.32
+
+Lombok version: 1.18.26 - https://mvnrepository.com/artifact/org.projectlombok/lombok/1.18.26
+
+admin Service:
+
+Email: admin@admin.com, password: admin
+
+companies:
+
+1.Coca cola	cocaCola@gmail.com , password: 1234
+
+2.Shein	Shein@gmail.com , password:1234
+
+3.MarketPlace MarketPlace@gmail.com , password:1234
+
+4.Fox	Fox@gmail.com , password:1234
+
+5.Zimmer	Zimmer@gmail.com , password:1234
+
+6.Castro	Castro@gmail.com , password:1234
+
+7.MoonActive	MoonActive@gmail.com , password:1234
+
+8.McDonald	McDonald@gmail.com , password:1234
+
+9.Ivory	Ivory@gmail.com , password:1234
+
+10.Intel	Intel@gmail.com , password:1234
+
+coupons:
+
+Coupon(id=1, companyId=8, category=FOOD, title=Big Mac Meal Deal, description=Get a Big Mac meal for only 20 shekels, startDate=2023-05-14, endDate=2023-05-21, amount=200, price=20.0, image=https://media4.giphy.com/media/Qtj9HpyAyRvQclo3Ka/giphy.gif?cid=ecf05e47olmlzj5ltm8ixks3ka9p76i3ma49w61pw7786pai&rid=giphy.gif&ct=g)
+
+Coupon(id=2, companyId=2, category=CLOTHING, title=Shein - 20% off on all orders, description=Get 20% off on all orders over 200 shekels, startDate=2023-05-14, endDate=2023-05-21, amount=500, price=50.0, image=https://media.giphy.com/media/l0HlK8rC1z6vSMdKM/giphy.gif)
+
+Coupon(id=3, companyId=3, category=HOME, title=MarketPlace - 10% off on furniture, description=Get 10% on all furniture items over $100, startDate=2023-05-14, endDate=2023-05-21, amount=300, price=100.0, image=https://media.giphy.com/media/3o6Zt6MLD9uODMj6zC/giphy.gif)
+
+Coupon(id=4, companyId=4, category=MOVIES, title=Fox - 20% off on all movie tickets, description=Get 20% off on all movie tickets, startDate=2023-05-14, endDate=2023-05-21, amount=100, price=20.0, image=https://media.giphy.com/media/3o7qDVX9sN0f0n2Il6/giphy.gif)
+
+Coupon(id=5, companyId=5, category=TRAVEL, title=Zimmer - $50 off on all hotel bookings, description=Get $50 off on all hotel bookings over $500, startDate=2023-05-14, endDate=2023-05-21, amount=200, price=500.0, image=https://media.giphy.com/media/3o7btRJdNZ5h5A9jDO/giphy.gif)
+
+Coupon(id=6, companyId=6, category=CLOTHING, title=Castro - 10% off on all summer collections, description=Get 10% off on all summer collections over $100, startDate=2023-05-14, endDate=2023-05-21, amount=500, price=100.0, image=https://media.giphy.com/media/3o7abHxRc5CYg1qmYQ/giphy.gif)
+
+Coupon(id=7, companyId=7, category=GAMES, title=MoonActive - 100 free spins on Coin Master, description=Get 100 free spins on Coin Master when you purchase $10 in coins, startDate=2023-05-14, endDate=2023-05-21, amount=1000, price=10.0, image=https://media.giphy.com/media/l3fZzLWxRD8ypvM3C/giphy.gif)
+
+Coupon(id=8, companyId=10, category=FOOD, title=Coca Cola - Buy One Get One Free, description=Buy one Coca Cola and get another one for free, startDate=2023-05-14, endDate=2023-05-21, amount=1000, price=10.0, image=https://media.giphy.com/media/9M0m0Ub8rCkEUZaSZD/giphy.gif)
+
+Coupon(id=9, companyId=9, category=ELECTRONICS, title=Ivory - 20% off on all laptops and desktops, description=Get 20% discount on all Ivory laptops and desktops, startDate=2023-05-14, endDate=2023-05-21, amount=100, price=40.0, image=https://media.giphy.com/media/3oKIPfRg8aJW77Nv3q/giphy.gif)
+
+Coupon(id=10, companyId=10, category=ELECTRONICS, title=Intel - Get 10% off on all processors, description=Upgrade your PC with Intel Core i7 processors and get 10% discount, startDate=2023-05-14, endDate=2023-05-21, amount=50, price=0.0, image=https://media.giphy.com/media/5VKbvrjxpVJCM/giphy.gif)
+
+customers:
+
+1.Roni	Barak	Roni@gmail.com , password:1234
+
+2.Noam	Menachem	Noam@gmail.com , password:1234
+
+3.Revital	Shemi	Revital@gmail.com , password:1234
+
+4.Yamit	Herut	Yamit@gmail.com , password:1234
+
+5.Grace	Jelen	Grace@gmail.com , password:1234
+
+6.Aharon	Lev	Aharon@gmail.com , password:1234
+
+7.Neomi	Lilach	Neomi@gmail.com , password:1234
+
+8.Adi	Shvat	Adi@gmail.com , password:1234
+
+9.Rachel	Hart	Rachel@gmail.com , password:1234
+
+10.Noga	Barak	Noga@gmail.com , password:1234
+
+coupons_vs_customers:
+
+customer_id = 1, coupon_id = 2
+
+customer_id = 1, coupon_id = 6
+
+
