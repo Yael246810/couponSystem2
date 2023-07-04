@@ -36,7 +36,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
     }
     @Override
     public void purchaseCoupon(Long couponId, int customerId) throws Exception {
-        Coupon coupon = couponRepository.findById(couponId).orElseThrow();
+        Coupon coupon = couponRepository.findById(couponId).orElseThrow(() -> new CouponSystemException(ErrorMessage.CANNOT_FIND_CUSTOMER_ID));
         // TODO: 28/06/2023 NOT LIKE A BOSS
         Customer customer = customerRepository.findById(customerId).orElseThrow((()->new Exception("customer does not exist")));
         List<Coupon> customerCoupons = customer.getCoupons();
@@ -120,11 +120,11 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
 
     @Override
     public Optional<Customer> getCustomerDetails(int customerId) throws CouponSystemException {
-        String customerEmail = customerRepository.findById(customerId).orElseThrow().getEmail();
-
+        Optional<Customer> customer = customerRepository.findById(customerId);
+        String customerEmail = customer.orElseThrow(() -> new CouponSystemException(ErrorMessage.CANNOT_FIND_CUSTOMER_ID)).getEmail();
         if (!loggedInCustomers.contains(customerEmail)) {
             throw new CouponSystemException(ErrorMessage.CUSTOMER_DETAILS_ARE_NOT_AVAILABLE);
         }
-        return customerRepository.findById(customerId);
+        return customer;
     }
 }
