@@ -29,11 +29,6 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
         }
         return login;
     }
-//TODO: do I really need get IdFromDB?
-    @Override
-    public int getIdFromDB(String email) {
-        return this.customerRepository.getIdByEmail(email);
-    }
     @Override
     public void purchaseCoupon(Long couponId, int customerId) throws Exception {
         Coupon coupon = couponRepository.findById(couponId).orElseThrow(() -> new CouponSystemException(ErrorMessage.CANNOT_FIND_CUSTOMER_ID));

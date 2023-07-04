@@ -134,7 +134,6 @@ public class CompanyServiceTest implements CommandLineRunner {
                 .build();
         companyService.deleteCoupon(couponToDelete1.getId());
         System.out.println("this is the deleted coupon: "+couponToDelete1);
-        //TODO: to check that it really works in the database... maybe I need to delete an existing coupon
         System.out.println("---------------------------------------------------------");
 
         // get company coupons

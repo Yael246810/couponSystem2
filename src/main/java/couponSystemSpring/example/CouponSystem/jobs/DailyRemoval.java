@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 @Component
 public class DailyRemoval {
-    // TODO: should delete coupon 8
     @Autowired
     private CouponRepository couponRepository;
     @Transactional

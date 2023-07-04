@@ -1,6 +1,5 @@
 package couponSystemSpring.example.CouponSystem.beans;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -26,7 +25,6 @@ public class Customer {
     private String email;
     @Column(length = 20)
     private String password;
-    //@ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     @ManyToMany
     private List<Coupon>coupons;
 

@@ -1,6 +1,5 @@
 package couponSystemSpring.example.CouponSystem.services;
 
-import couponSystemSpring.example.CouponSystem.beans.ClientType;
 import couponSystemSpring.example.CouponSystem.beans.User;
 import couponSystemSpring.example.CouponSystem.exceptions.CouponSystemException;
 import couponSystemSpring.example.CouponSystem.exceptions.ErrorMessage;

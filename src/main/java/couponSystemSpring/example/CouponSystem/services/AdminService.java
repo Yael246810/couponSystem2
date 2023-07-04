@@ -9,7 +9,6 @@ import java.util.Optional;
 
 public interface AdminService {
     void add(Company company) throws Exception;
-    int getIdFromDB(String email);
     void updateCompany(Company company) throws CouponSystemException;
     void deleteCompany(int companyId) throws CouponSystemException;
     List<Company> getAllCompanies();

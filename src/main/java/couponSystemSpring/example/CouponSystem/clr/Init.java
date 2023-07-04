@@ -30,16 +30,6 @@ public class Init implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-//        System.out.println(Art.CATEGORIES);
-//        for (Category category : Category.values()) {
-//            String name = category.name();
-//            categoryDao.addCategory(name);
-//        }
-//        Arrays.stream(Category.values()).forEach(category -> System.out.println(category.getDBValue()+"\t"+category.name()));
-//    }
-//
-//    //private static void loadCustomers() {
-        //System.out.println(Art.CUSTOMERS);
         Customer c1 = Customer.builder()
                 .firstName("Roni")
                 .lastName("Barak")

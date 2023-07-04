@@ -15,5 +15,4 @@ public interface CustomerService {
     List<Coupon>getCustomerCouponsByCategory(Category category, int customerId) throws Exception;
     List<Coupon> getCustomerCouponsUntilPrice(double max, int customerId) throws CouponSystemException;
     Optional<Customer> getCustomerDetails(int customerId) throws CouponSystemException;
-    int getIdFromDB(String email);
 }

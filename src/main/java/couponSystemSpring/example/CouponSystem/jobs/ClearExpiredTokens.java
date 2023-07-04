@@ -5,13 +5,12 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-//TODO: I think that it works, but I couldn't see what it deleted.
 @Component
 public class ClearExpiredTokens {
     @Autowired
     private TokenService tokenService;
     @Transactional
-    @Scheduled(fixedRate = 1000*60)//TODO: it should be only 1000.
+    @Scheduled(fixedRate = 1000)
     public void clearExpiredTokens(){
         System.out.println("thread of expired tokens is here");
         tokenService.clear();

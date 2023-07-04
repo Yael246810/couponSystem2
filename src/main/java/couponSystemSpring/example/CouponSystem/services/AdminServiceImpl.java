@@ -15,11 +15,6 @@ public class AdminServiceImpl extends ClientService implements AdminService{
     public boolean login(String email, String password) {
         return email.equals("admin@admin.com") && password.equals("admin");
     }
-// TODO: do I need getIdFromDB?
-    @Override
-    public int getIdFromDB(String email) {
-        return companyRepository.getIdByEmail(email);
-    }
     @Override
     public void add(Company company) throws Exception {
         int id = company.getId();
