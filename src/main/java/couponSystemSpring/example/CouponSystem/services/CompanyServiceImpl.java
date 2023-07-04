@@ -52,7 +52,11 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
                 throw new CouponSystemException(ErrorMessage.COUPON_TITLE_ALREADY_EXISTS);
             }
             couponRepository.save(coupon);
-            company.getCoupons().add(coupon);
+            List<Coupon> coupons = company.getCoupons();
+            if(coupons == null) {
+                coupons = new ArrayList<>();
+            }
+            coupons.add(coupon);
         }
         if (couponRepository.existsById(couponId)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_ADD_COUPON_ALREADY_EXISTS);
@@ -74,11 +78,11 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
     }
 
     @Override
-    public void deleteCoupon(Coupon coupon) throws CouponSystemException {
-        int couponId = (int) coupon.getId();
-        if (!couponRepository.existsById((long) couponId)) {
+    public void deleteCoupon(long couponId) throws CouponSystemException {
+        if (!couponRepository.existsById(couponId)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_DELETE_COUPON_ID_DOESNT_EXIST);
         }
+        Coupon coupon = couponRepository.findById(couponId).orElseThrow();
         couponRepository.delete(coupon);
     }
 

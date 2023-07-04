@@ -39,7 +39,7 @@ public class Init implements CommandLineRunner {
 //    }
 //
 //    //private static void loadCustomers() {
-        System.out.println(Art.CUSTOMERS);
+        //System.out.println(Art.CUSTOMERS);
         Customer c1 = Customer.builder()
                 .firstName("Roni")
                 .lastName("Barak")
@@ -62,10 +62,10 @@ public class Init implements CommandLineRunner {
         Customer c10 = new Customer("Noga", "Barak", "Noga@gmail.com", "1234");
         List<Customer> customers = List.of(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10);
         customerRepository.saveAll(customers);
-        customerRepository.findAll().forEach(System.out::println);
+        //customerRepository.findAll().forEach(System.out::println);
 
         //private static void loadCompanies() {
-        System.out.println(Art.COMPANIES);
+        //System.out.println(Art.COMPANIES);
         Company company1 = new Company("Coca cola", "cocaCola@gmail.com", "1234");
         Company company2 = new Company("Shein", "Shein@gmail.com", "1234");
         Company company3 = new Company("MarketPlace", "MarketPlace@gmail.com", "1234");
@@ -78,10 +78,10 @@ public class Init implements CommandLineRunner {
         Company company10 = new Company("Intel", "Intel@gmail.com", "1234");
         List<Company> companies = List.of(company1, company2, company3, company4, company5, company6, company7, company8, company9, company10);
         companyRepository.saveAll(companies);
-        companyRepository.findAll().forEach(System.out::println);
+        //companyRepository.findAll().forEach(System.out::println);
 
         //private static void loadCoupons() {
-        System.out.println(Art.COUPONS);
+        //System.out.println(Art.COUPONS);
         Date startDate = Date.valueOf(LocalDate.now());
         Date endDate = Date.valueOf(LocalDate.now().plusWeeks(1));
 
@@ -204,7 +204,7 @@ public class Init implements CommandLineRunner {
                 .build();
         List<Coupon> coupons = List.of(coupon1, coupon2, coupon3, coupon4, coupon5, coupon6, coupon7, coupon8, coupon9, coupon10);
         couponRepository.saveAll(coupons);
-        couponRepository.findAll().forEach(System.out::println);
+        //couponRepository.findAll().forEach(System.out::println);
 
         User u1 = User.builder()
                 .id(0)
@@ -235,7 +235,7 @@ public class Init implements CommandLineRunner {
                 .build();
 
         userRepository.saveAll(List.of(u1,u2,u3,u4));
-        userRepository.findAll().forEach(System.out::println);
+        //userRepository.findAll().forEach(System.out::println);
     }
 }
 

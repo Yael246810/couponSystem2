@@ -1,12 +1,13 @@
 package couponSystemSpring.example.CouponSystem.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Entity
 @Table(name = "coupons")
@@ -15,17 +16,19 @@ import java.util.Optional;
 @AllArgsConstructor
 @Builder
 public class Coupon {
-    //TODO: maybe I should also add a field of customer? and write one to many
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @ManyToOne
     @ToString.Exclude
+   @JsonIgnore
+    //@JsonManagedReference
     private Company company;
     @Enumerated(EnumType.STRING)
     private Category category;
     @ManyToMany(mappedBy = "coupons",cascade = CascadeType.REMOVE)
     @ToString.Exclude
+    //@JsonBackReference
     List<Customer>customers;
     private String title;
     private String description;

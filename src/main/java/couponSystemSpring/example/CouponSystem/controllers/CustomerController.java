@@ -16,46 +16,46 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+//TODO: there is a problem with the query of max price in here... after I will fix it, it supposed to work
 
 @RestController
-@RequestMapping("api/customer")
+@RequestMapping("api/customers")
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
     @Autowired
     private TokenService tokenService;
-    @PostMapping("login/customer")
-    boolean login(@RequestHeader(value = "Authorization") UUID token,@RequestParam String email, @RequestParam String password) throws CouponSystemException {
-        if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
-            throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_USER_NOT_ALLOWED);
-        }
-        return ((ClientService) customerService).login(email,password);
-    }
-    @PostMapping("purchase/coupon/{customerId}")
+//    @PostMapping("login")
+//    boolean login(@RequestHeader("Authorization") UUID token, @RequestParam String email, @RequestParam String password) throws CouponSystemException {
+//        if (!tokenService.isUserAllowed(token, ClientType.CUSTOMER)) {
+//            throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_USER_NOT_ALLOWED);
+//        }
+//        return ((ClientService) customerService).login(email,password);
+//    }
+    @PostMapping("{customerId}/coupons/{couponId}/purchase")
     @ResponseStatus(HttpStatus.CREATED)
-    void purchaseCoupon(@RequestHeader(value = "Authorization") UUID token,@RequestBody Coupon coupon, @PathVariable int customerId) throws Exception {
-        customerService.purchaseCoupon(coupon, customerId);
+    void purchaseCoupon(@RequestHeader("Authorization") String token, @PathVariable Long couponId, @PathVariable int customerId) throws Exception {
+        customerService.purchaseCoupon(couponId, customerId);
     }
-    @DeleteMapping("delete/coupon/{couponId}")
+    @DeleteMapping("{customerId}/coupons/{couponId}/delete")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCouponPurchased(@RequestHeader(value = "Authorization") UUID token,@RequestBody Coupon coupon, @PathVariable int customerId) throws CouponSystemException {
-        customerService.deleteCouponPurchased(coupon,customerId);
+    void deleteCouponPurchased(@RequestHeader("Authorization") String token,@PathVariable Long couponId, @PathVariable int customerId) throws CouponSystemException {
+        customerService.deleteCouponPurchased(couponId,customerId);
     }
-    @GetMapping("customer/{customerId}/coupons")
-    List<Coupon> getCustomerCoupons(@RequestHeader(value = "Authorization") UUID token,@PathVariable int customerId) throws Exception {
+    @GetMapping("{customerId}/coupons")
+    List<Coupon> getCustomerCoupons(@RequestHeader("Authorization") String token,@PathVariable int customerId) throws Exception {
         return customerService.getCustomerCoupons(customerId);
     }
-    @GetMapping("customer/coupons/category")
-    List<Coupon> getCustomerCouponsByCategory(@RequestHeader(value = "Authorization") UUID token,@RequestParam Category category, @PathVariable int customerId) throws Exception {
+    @GetMapping("{customerId}/coupons/category")
+    List<Coupon> getCustomerCouponsByCategory(@RequestHeader("Authorization") String token,@RequestParam("val") Category category, @PathVariable int customerId) throws Exception {
         return customerService.getCustomerCouponsByCategory(category,customerId);
     }
-    @GetMapping("customer/coupons/max price")
-    List<Coupon> getCustomerCouponsUntilMaxPrice(@RequestHeader(value = "Authorization") UUID token,@RequestParam double maxPrice, @PathVariable int customerId) throws CouponSystemException {
-        return customerService.getCustomerCouponsUntilMaxPrice(maxPrice, customerId);
+    @GetMapping("{customerId}/coupons/price")
+    List<Coupon> getCustomerCouponsUntilPrice(@RequestHeader("Authorization") String token, @RequestParam("max") double max, @PathVariable int customerId) throws CouponSystemException {
+        return customerService.getCustomerCouponsUntilPrice(max, customerId);
     }
-    @GetMapping("customer/details")
-    Optional<Customer> getCustomerDetails(@RequestHeader(value = "Authorization") UUID token,@PathVariable int customerId) throws CouponSystemException {
+    @GetMapping("{customerId}/details")
+    Optional<Customer> getCustomerDetails(@RequestHeader("Authorization") String token,@PathVariable int customerId) throws CouponSystemException {
         return customerService.getCustomerDetails(customerId);
     }
 }

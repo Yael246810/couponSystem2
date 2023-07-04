@@ -24,8 +24,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 //    @Modifying
 //    void saveCustomersCoupons(int customerId, int couponId);
 
-//    Customer findById(int customerId);
-    //TODO: to change this query (I already have it in the 36 methods)
 
     // will return all the details about this customer
     //@Query(value = "SELECT * FROM `couponsystem2`.customers_coupons JOIN `couponsystem2`.coupons ON `couponsystem2`.customers_coupons.coupons_id = coupons.id WHERE customers_id = ?", nativeQuery = true)

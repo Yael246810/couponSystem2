@@ -5,7 +5,7 @@ import couponSystemSpring.example.CouponSystem.beans.Customer;
 import couponSystemSpring.example.CouponSystem.exceptions.CouponSystemException;
 import couponSystemSpring.example.CouponSystem.exceptions.ErrorMessage;
 import org.springframework.stereotype.Service;
-// TODO: to check if after I changed it, everything still works
+
 import java.util.List;
 import java.util.Optional;
 
@@ -49,12 +49,12 @@ public class AdminServiceImpl extends ClientService implements AdminService{
         }
         this.companyRepository.saveAndFlush(company);
     }
-    //TODO: to check if I really need to put Company company
     @Override
-    public void deleteCompany(int companyId,Company company) throws CouponSystemException {
+    public void deleteCompany(int companyId) throws CouponSystemException {
         if (!companyRepository.existsById(companyId)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_DELETE_COMPANY_ID_NOT_EXISTS);
         }
+        Company company = companyRepository.findById(companyId);
         companyRepository.delete(company);
     }
 
@@ -93,9 +93,9 @@ public class AdminServiceImpl extends ClientService implements AdminService{
     }
 
     @Override
-    public void deleteCustomer(Customer customer) throws CouponSystemException {
-        int customerId = customer.getId();
+    public void deleteCustomer(int customerId) throws CouponSystemException {
         if (customerRepository.existsById(customerId)) {
+            Customer customer = customerRepository.findById(customerId).orElseThrow();
             customerRepository.delete(customer);
         }
     }

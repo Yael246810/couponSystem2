@@ -107,7 +107,7 @@ public class AdminServiceTest implements CommandLineRunner {
         try {
             var companyOptional = adminService.getSingleCompany(13);
             companyToDelete = companyOptional.orElseThrow(() -> new Exception("company does not exist"));
-            adminService.deleteCompany(companyToDelete.getId(),companyToDelete);
+            adminService.deleteCompany(companyToDelete.getId());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -115,10 +115,10 @@ public class AdminServiceTest implements CommandLineRunner {
         Company companyToDelete1 = null;
         var companyOptional = adminService.getSingleCompany(11);
         companyToDelete1 = companyOptional.orElseThrow(()->new Exception("cannot delete company"));
-        adminService.deleteCompany(companyToDelete1.getId(),companyToDelete1);
+        adminService.deleteCompany(companyToDelete1.getId());
         System.out.println(adminService.getAllCompanies());
         Company companyWithCoupon = adminService.getSingleCompany(7).orElseThrow();
-        adminService.deleteCompany(companyWithCoupon.getId(),companyWithCoupon);
+        adminService.deleteCompany(companyWithCoupon.getId());
         System.out.println("------------------------------------------------------------------------------");
 
         // get all companies method//
@@ -168,7 +168,7 @@ public class AdminServiceTest implements CommandLineRunner {
         try {
             Optional<Customer> customerOptional = adminService.getSingleCustomer(13).orElseThrow();
             customerToDelete = customerOptional.orElseThrow(() -> new Exception("customer does not exist"));
-            adminService.deleteCustomer(customerToDelete);
+            adminService.deleteCustomer(customerToDelete.getId());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -177,14 +177,14 @@ public class AdminServiceTest implements CommandLineRunner {
         try {
             Optional<Customer> customerOptional = adminService.getSingleCustomer(3).orElseThrow();
             customerToDelete = customerOptional.orElseThrow(() -> new Exception("customer does not exist"));
-            adminService.deleteCustomer(customerToDelete);
+            adminService.deleteCustomer(customerToDelete.getId());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
         TestUtils.test("Admin service - delete customer - succeeded");
         customerToDelete = adminService.getSingleCustomer(1).orElseThrow(() -> new Exception("customer does not exist")).orElseThrow();;
-        adminService.deleteCustomer(customerToDelete);
+        adminService.deleteCustomer(customerToDelete.getId());
         adminService.getAllCustomers().forEach(System.out::println);
         System.out.println("------------------------------------------------------------------------------");
 

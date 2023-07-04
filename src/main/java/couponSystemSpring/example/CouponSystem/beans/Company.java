@@ -1,11 +1,13 @@
 package couponSystemSpring.example.CouponSystem.beans;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Table(name = "companies")
@@ -20,8 +22,9 @@ public class Company {
     private String name;
     private String email;
     private String password;
+    //@JsonBackReference
     @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE},orphanRemoval = true,mappedBy = "company")
-    private List<Coupon> coupons;
+    private List<Coupon> coupons = new ArrayList<>();
 
     public Company(String name, String email, String password) {
         this.name = name;

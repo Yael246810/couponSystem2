@@ -14,9 +14,7 @@ public interface CompanyRepository extends JpaRepository<Company,Integer> {
     @Query(value = "SELECT id FROM `couponsystem2`.companies WHERE email =?",nativeQuery = true)
     int getIdByEmail(String email);
     Company findById(int companyId);
-    //TODO: maybe I can do it like in couponRepository.
     @Query(value = "SELECT * FROM `couponsystem2`.coupons WHERE company_id = ?",nativeQuery = true)
     List<Coupon> findByCouponsCompanyId(int companyId);
     // get the company coupons
 }
-// TODO: to see if I need other functionalities that were existed in the generic Dao...

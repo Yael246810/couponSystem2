@@ -1,5 +1,6 @@
 package couponSystemSpring.example.CouponSystem.controllers;
 
+import couponSystemSpring.example.CouponSystem.JsonObjects.CouponCompanyData;
 import couponSystemSpring.example.CouponSystem.beans.Category;
 import couponSystemSpring.example.CouponSystem.beans.ClientType;
 import couponSystemSpring.example.CouponSystem.beans.Company;
@@ -17,51 +18,52 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/company")
+@RequestMapping("api/companies")
 public class CompanyController {
     @Autowired
     private CompanyService companyService;
     @Autowired
     private TokenService tokenService;
 
-    @PostMapping("login/company")
-    boolean login(@RequestHeader(value = "Authorization") UUID token, @RequestParam String email, @RequestParam String password) throws CouponSystemException {
-        if (!tokenService.isUserAllowed(token, ClientType.COMPANY)) {
-            throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_USER_NOT_ALLOWED);
-        }
-        return ((ClientService) companyService).login(email, password);
-    }
-        @PostMapping
-        @ResponseStatus(HttpStatus.CREATED)
-        void addCoupon (@RequestHeader(value = "Authorization") UUID token,@RequestBody Coupon coupon) throws CouponSystemException {
-            companyService.addCoupon(coupon);
-        }
-        @PutMapping("coupon/update")
+//    @PostMapping("login")
+//    boolean login(@RequestHeader("Authorization") UUID token, @RequestParam String email, @RequestParam String password) throws CouponSystemException {
+//        if (!tokenService.isUserAllowed(token, ClientType.COMPANY)) {
+//            throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_USER_NOT_ALLOWED);
+//        }
+//        return ((ClientService) companyService).login(email, password);
+//    }
+        @PostMapping("coupon")
         @ResponseStatus(HttpStatus.NO_CONTENT)
-        void updateCoupon (@RequestHeader(value = "Authorization") UUID token,@PathVariable int couponId, @RequestBody Coupon coupon) throws CouponSystemException {
-            companyService.updateCoupon(couponId, coupon);
+        void addCoupon (@RequestHeader( "Authorization") String token, @RequestBody CouponCompanyData couponCompanyData) throws CouponSystemException {
+            companyService.addCoupon(couponCompanyData.getCoupon());
         }
-        @DeleteMapping("coupon/delete")
+        @PutMapping("coupon")
         @ResponseStatus(HttpStatus.NO_CONTENT)
-        void deleteCoupon (@RequestHeader(value = "Authorization") UUID token,@RequestBody Coupon coupon) throws CouponSystemException {
-            companyService.deleteCoupon(coupon);
+        void updateCoupon (@RequestHeader("Authorization") String token, @RequestBody CouponCompanyData couponCompanyData) throws CouponSystemException {
+            Coupon coupon = couponCompanyData.getCoupon();
+            companyService.updateCoupon((int) coupon.getId(),coupon);
         }
-        @GetMapping("company/{companyId}/coupons")
-        List<Coupon> getCompanyCoupons (@RequestHeader(value = "Authorization") UUID token,@PathVariable int companyId) throws CouponSystemException {
+        @DeleteMapping("{couponId}")
+        @ResponseStatus(HttpStatus.NO_CONTENT)
+        void deleteCoupon (@RequestHeader("Authorization") String token,@PathVariable long couponId) throws CouponSystemException {
+            companyService.deleteCoupon(couponId);
+        }
+        @GetMapping("{companyId}/coupons")
+        List<Coupon> getCompanyCoupons (@RequestHeader("Authorization") String token,@PathVariable int companyId) throws CouponSystemException {
             return companyService.getCompanyCoupons(companyId);
         }
-        @GetMapping("company/coupons/category")
-        List<Coupon> getCompanyCouponsByCategory (@RequestHeader(value = "Authorization") UUID token,@RequestParam Category category,@PathVariable int companyId) throws
+        @GetMapping("{companyId}/coupons/category")
+        List<Coupon> getCompanyCouponsByCategory (@RequestHeader("Authorization") String token,@PathVariable int companyId, @RequestParam("val") Category category) throws
         CouponSystemException {
             return companyService.getCompanyCouponsByCategory(category, companyId);
         }
-        @GetMapping("company/coupons/max price")
-        List<Coupon> getCompanyCouponsByMaxPrice (@RequestHeader(value = "Authorization") UUID token,@RequestParam double maxPrice, @PathVariable int companyId) throws
+        @GetMapping("{companyId}/coupons/price")
+        List<Coupon> getCompanyCouponsByMaxPrice (@RequestHeader("Authorization") String token,@RequestParam("max") double maxPrice, @PathVariable int companyId) throws
         CouponSystemException {
             return companyService.getCompanyCouponsByMaxPrice(maxPrice, companyId);
         }
-        @GetMapping("company/details")
-        Company getCompanyDetails (@RequestHeader(value = "Authorization") UUID token,@PathVariable int companyId) throws CouponSystemException {
+        @GetMapping("{companyId}/details")
+        Company getCompanyDetails (@RequestHeader("Authorization") String token,@PathVariable int companyId) throws CouponSystemException {
             return companyService.getCompanyDetails(companyId);
         }
     }

@@ -114,7 +114,7 @@ public class CompanyServiceTest implements CommandLineRunner {
                     .price(200)
                     .build();
 
-            companyService.deleteCoupon(couponToDelete);
+            companyService.deleteCoupon(couponToDelete.getId());
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
@@ -132,7 +132,7 @@ public class CompanyServiceTest implements CommandLineRunner {
                 .amount(100)
                 .price(200)
                 .build();
-        companyService.deleteCoupon(couponToDelete1);
+        companyService.deleteCoupon(couponToDelete1.getId());
         System.out.println("this is the deleted coupon: "+couponToDelete1);
         //TODO: to check that it really works in the database... maybe I need to delete an existing coupon
         System.out.println("---------------------------------------------------------");

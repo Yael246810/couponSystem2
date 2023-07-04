@@ -1,5 +1,6 @@
 package couponSystemSpring.example.CouponSystem.beans;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,8 +22,8 @@ public class Customer {
     private String lastName;
     private String email;
     private String password;
+    //@JsonManagedReference
     @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
-    // TODO: maybe I need to add: ,mappedBy = "customer"
     private List<Coupon>coupons;
 
     public Customer(String firstName, String lastName, String email, String password) {

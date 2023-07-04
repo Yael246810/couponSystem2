@@ -52,5 +52,4 @@ public enum ErrorMessage {
     ErrorMessage(String message) {
         this.message = message;
     }
-
 }

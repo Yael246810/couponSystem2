@@ -23,26 +23,25 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
             String customerPassword = customerRepository.findById(customerId).orElseThrow().getPassword();
 
             if (customerEmail.equals(email) && customerPassword.equals(password)) {
-                if (loggedInCustomers.add(customerEmail)) {
-                    login = true;
-                }
+                loggedInCustomers.add(customerEmail);
+                login = true;
             }
         }
         return login;
     }
-
+//TODO: do I really need get IdFromDB?
     @Override
     public int getIdFromDB(String email) {
         return this.customerRepository.getIdByEmail(email);
     }
     @Override
-    public void purchaseCoupon(Coupon coupon, int customerId) throws Exception {
+    public void purchaseCoupon(Long couponId, int customerId) throws Exception {
+        Coupon coupon = couponRepository.findById(couponId).orElseThrow();
         // TODO: 28/06/2023 NOT LIKE A BOSS
         Customer customer = customerRepository.findById(customerId).orElseThrow((()->new Exception("customer does not exist")));
         List<Coupon> customerCoupons = customer.getCoupons();
 
        // List<Coupon> customerCoupons = customerRepository.findByCouponsId(customerId);
-        int couponId = (int) coupon.getId();
         if (customerCoupons != null && !customerCoupons.isEmpty()) {
             //TODO: maybe I can don't need what we did with the var?
             for (var a : customerCoupons) {
@@ -58,20 +57,23 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
         if(coupon.getEndDate().before(now)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_PURCHASE_COUPON_WITH_EXPIRED_DATE);
         }
+        if (!couponRepository.existsById((long) couponId)){
+            couponRepository.save(coupon);
+        }
         customerRepository.addCouponForCustomer(customerId,couponId);
     }
-//TODO: I need to check if it deletes also the coupon from the customer_vs_coupons....
     @Override
-    public void deleteCouponPurchased(Coupon coupon, int customerId) throws CouponSystemException {
-        var customer = customerRepository.findById(customerId);
-        var coupons = customer.orElseThrow().getCoupons();
+    public void deleteCouponPurchased(Long couponId, int customerId) throws CouponSystemException {
+        Customer customer = customerRepository.findById(customerId).orElseThrow();
+        Coupon coupon = couponRepository.findById(couponId).orElseThrow();
+        List<Coupon> coupons = customer.getCoupons();
         boolean isCouponExists = coupons.contains(coupon);
 
         if (!isCouponExists){
             throw new CouponSystemException(ErrorMessage.CUSTOMER_DOES_NOT_HAVE_THIS_COUPON);
         }
         coupons.remove(coupon);
-        customerRepository.save(customer.orElseThrow());
+        customerRepository.save(customer);
         couponRepository.delete(coupon);
     }
     @Override
@@ -106,11 +108,12 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
     }
 
     @Override
-    public List<Coupon> getCustomerCouponsUntilMaxPrice(double maxPrice, int customerId) throws CouponSystemException {
+    public List<Coupon> getCustomerCouponsUntilPrice(double max, int customerId) throws CouponSystemException {
         String customerEmail = customerRepository.findById(customerId).orElseThrow().getEmail();
 
         if (loggedInCustomers.contains(customerEmail)) {
-            couponRepository.findByIdAndPriceLessThan(maxPrice,customerId);
+            // TODO - fix this query
+            return couponRepository.findByCustomerIdAndPriceLessThan(max,customerId);
         }
         return new ArrayList<>();
     }

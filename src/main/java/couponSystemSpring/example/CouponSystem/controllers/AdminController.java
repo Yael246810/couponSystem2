@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+//TODO: there is a problem with almost all get methods
 @RestController
 @RequestMapping("api/admin")
 public class AdminController {
@@ -23,60 +23,63 @@ public class AdminController {
     private AdminService adminService;
     @Autowired
     private TokenService tokenService;
-    @PostMapping("login/admin")
-    boolean login(@RequestHeader(value = "Authorization") UUID token,@RequestParam String email, @RequestParam String password) throws CouponSystemException {
-        if (!tokenService.isUserAllowed(token, ClientType.ADMIN)){
-            throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_USER_NOT_ALLOWED);
-        }
-        return ((ClientService) adminService).login("admin@admin.com","1234");
-    }
+//    @PostMapping("login")
+//    boolean login(@RequestHeader(value = "Authorization") UUID token,@RequestParam String email, @RequestParam String password) throws CouponSystemException {
+//        if (!tokenService.isUserAllowed(token, ClientType.ADMIN)){
+//            throw new CouponSystemException(ErrorMessage.SECURITY_EXCEPTION_USER_NOT_ALLOWED);
+//        }
+//        return ((ClientService) adminService).login("admin@admin.com","1234");
+//    }
 
-    @PostMapping("companies")
+    @PostMapping("company")
     @ResponseStatus(HttpStatus.CREATED)
     void addCompany(@RequestHeader("Authorization") String token, @RequestBody Company company) throws Exception {
         System.out.println("Adding the company: " + company + ", token: " +token);
         adminService.add(company);
     }
 
-    @PutMapping("company/update")
+    @PutMapping("companies/company")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void updateCompany(@RequestHeader(value = "Authorization") UUID token,@RequestBody Company company) throws CouponSystemException {
+    void updateCompany(@RequestHeader("Authorization") String token,@RequestBody Company company) throws CouponSystemException {
         adminService.updateCompany(company);
     }
-    @DeleteMapping("/company/{companyId}")
+    @DeleteMapping("companies/{companyId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCompany(@RequestHeader(value = "Authorization") UUID token,@RequestBody Company company) throws CouponSystemException {
-        adminService.deleteCompany(company.getId(), company);
+    void deleteCompany(@RequestHeader("Authorization") String token,@PathVariable int companyId) throws CouponSystemException {
+        adminService.deleteCompany(companyId);
     }
-    @GetMapping("/api/admin/companies")
-    List<Company> getAllCompanies(@RequestHeader(value = "Authorization") UUID token){
+    @GetMapping("companies")
+    @ResponseStatus(HttpStatus.CREATED)
+    List<Company> getAllCompanies(@RequestHeader(value = "Authorization") String token){
         return adminService.getAllCompanies();
     }
-    @GetMapping("/{companyId}")
-    Optional<Company> getSingleCompany(@RequestHeader(value = "Authorization") UUID token,@PathVariable int companyId) throws CouponSystemException {
-        return adminService.getSingleCompany(companyId);
+    //TODO: It doesn't work
+    @GetMapping("companies/{companyId}")
+    Optional<Company> getSingleCompany(@RequestHeader(value = "Authorization") String token, @PathVariable int companyId) throws CouponSystemException {
+        Optional<Company> optionalCompany = adminService.getSingleCompany(companyId);
+        return optionalCompany;
     }
-    @PostMapping("/api/admin/customers")
+    @PostMapping("customer")
     @ResponseStatus(HttpStatus.CREATED)
-    void addCustomer(@RequestHeader(value = "Authorization") UUID token,@RequestBody Customer customer) throws CouponSystemException {
+    void addCustomer(@RequestHeader(value = "Authorization") String token,@RequestBody Customer customer) throws CouponSystemException {
         adminService.addCustomer(customer);
     }
-    @PutMapping("/{customerId}")
+    @PutMapping("customer/{customerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void updateCustomer(@RequestHeader(value = "Authorization") UUID token,@PathVariable int customerId,@RequestBody Customer customer) throws CouponSystemException {
+    void updateCustomer(@RequestHeader(value = "Authorization") String token,@PathVariable int customerId,@RequestBody Customer customer) throws CouponSystemException {
         adminService.updateCustomer(customerId,customer);
     }
-    @DeleteMapping("{customerId}")
+    @DeleteMapping("customers/{customerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteCustomer(@RequestHeader(value = "Authorization") UUID token,@PathVariable int customerId,@RequestBody Customer customer) throws CouponSystemException {
-        adminService.deleteCustomer(customer);
+    void deleteCustomer(@RequestHeader(value = "Authorization") String token,@PathVariable int customerId) throws CouponSystemException {
+        adminService.deleteCustomer(customerId);
     }
-    @GetMapping("/api/admin/customers")
-    List<Customer> getAllCustomers(@RequestHeader(value = "Authorization") UUID token){
+    @GetMapping("customers")
+    List<Customer> getAllCustomers(@RequestHeader(value = "Authorization") String token){
         return adminService.getAllCustomers();
     }
-    @GetMapping("/{customerId}")
-    Optional<Customer> getSingleCustomer(@RequestHeader(value = "Authorization") UUID token,@PathVariable int customerId) throws CouponSystemException {
+    @GetMapping("customers/{customerId}")
+    Optional<Customer> getSingleCustomer(@RequestHeader(value = "Authorization") String token,@PathVariable int customerId) throws CouponSystemException {
         return adminService.getSingleCustomer(customerId).orElseThrow();
     }
 }
