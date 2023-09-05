@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
-    void purchaseCoupon(Long couponId, int customerId) throws Exception;
+    Coupon purchaseCoupon(Long couponId, int customerId) throws Exception;
     void deleteCouponPurchased(Long couponId, int customerId) throws CouponSystemException;
     List<Coupon> getCustomerCoupons(int customerId) throws Exception;
     List<Coupon>getCustomerCouponsByCategory(Category category, int customerId) throws Exception;
-    List<Coupon> getCustomerCouponsUntilPrice(double max, int customerId) throws CouponSystemException;
+    List<Coupon> getCustomerCouponsUntilPrice(int customerId,double max) throws CouponSystemException;
     Optional<Customer> getCustomerDetails(int customerId) throws CouponSystemException;
 }

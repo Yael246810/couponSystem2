@@ -1,5 +1,6 @@
 package couponSystemSpring.example.CouponSystem.services;
 
+import couponSystemSpring.example.CouponSystem.JsonObjects.CouponCompanyData;
 import couponSystemSpring.example.CouponSystem.beans.Category;
 import couponSystemSpring.example.CouponSystem.beans.Company;
 import couponSystemSpring.example.CouponSystem.beans.Coupon;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface CompanyService {
     int getIdFromDB(String email);
-    void addCoupon(Coupon coupon) throws CouponSystemException;
+    CouponCompanyData addCoupon(Coupon coupon) throws CouponSystemException;
     void updateCoupon (int couponId,Coupon coupon) throws CouponSystemException;
     void deleteCoupon(long couponId) throws CouponSystemException;
     List<Coupon> getCompanyCoupons(int companyId) throws CouponSystemException;

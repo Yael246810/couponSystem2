@@ -1,5 +1,6 @@
 package couponSystemSpring.example.CouponSystem.services;
 
+import couponSystemSpring.example.CouponSystem.JsonObjects.CouponCompanyData;
 import couponSystemSpring.example.CouponSystem.beans.Category;
 import couponSystemSpring.example.CouponSystem.beans.Company;
 import couponSystemSpring.example.CouponSystem.beans.Coupon;
@@ -40,7 +41,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
     }
 
     @Override
-    public void addCoupon(Coupon coupon) throws CouponSystemException {
+    public CouponCompanyData addCoupon(Coupon coupon) throws CouponSystemException {
         long couponId = coupon.getId();
         Company company = coupon.getCompany();
         String title = coupon.getTitle();
@@ -57,10 +58,13 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
                 coupons = new ArrayList<>();
             }
             coupons.add(coupon);
+
+
         }
         if (couponRepository.existsById(couponId)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_ADD_COUPON_ALREADY_EXISTS);
         }
+        return null;
     }
 
     @Override

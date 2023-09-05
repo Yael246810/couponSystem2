@@ -9,5 +9,5 @@ import java.util.UUID;
 
 @Service
 public interface AuthService {
-    UUID login(@RequestBody User user) throws CouponSystemException;
+    AuthServiceImpl.LoginResponseData login(@RequestBody User user) throws CouponSystemException;
 }

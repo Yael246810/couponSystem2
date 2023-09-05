@@ -16,7 +16,7 @@ public class AdminServiceImpl extends ClientService implements AdminService{
         return email.equals("admin@admin.com") && password.equals("admin");
     }
     @Override
-    public void add(Company company) throws Exception {
+    public Company add(Company company) throws Exception {
         int id = company.getId();
         String name = company.getName();
         String email = company.getEmail();
@@ -29,7 +29,8 @@ public class AdminServiceImpl extends ClientService implements AdminService{
         if (this.companyRepository.existsByEmail(email)) {
             throw new CouponSystemException(ErrorMessage.ADD_COMPANY_EMAIL_ALREADY_EXISTS);
         }
-        this.companyRepository.save(company);
+        return this.companyRepository.save(company);
+         //company;
     }
 
     @Override
@@ -67,7 +68,7 @@ public class AdminServiceImpl extends ClientService implements AdminService{
     }
 
     @Override
-    public void addCustomer(Customer customer) throws CouponSystemException {
+    public Customer addCustomer(Customer customer) throws CouponSystemException {
         int customerId = customer.getId();
         String email = customer.getEmail();
         if (customerRepository.existsById(customerId)) {
@@ -76,15 +77,18 @@ public class AdminServiceImpl extends ClientService implements AdminService{
         if (customerRepository.existsByEmail(email)) {
             throw new CouponSystemException(ErrorMessage.CUSTOMER_EMAIL_ALREADY_EXISTS);
         }
-        customerRepository.save(customer);
+        return customerRepository.save(customer);
     }
 
     @Override
-    public void updateCustomer(int customerId, Customer customer) throws CouponSystemException {
+    public Customer updateCustomer(int customerId, Customer customer) throws CouponSystemException {
+        customer.setId(customerId);
+        System.out.println("id"+customer.getId());
         if (customer.getId() != customerId) {
             throw new CouponSystemException(ErrorMessage.CANNOT_UPDATE_CUSTOMER_ID);
         }
         customerRepository.saveAndFlush(customer);
+        return customer;
     }
 
     @Override

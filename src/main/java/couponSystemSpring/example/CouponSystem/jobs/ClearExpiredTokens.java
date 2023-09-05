@@ -10,7 +10,7 @@ public class ClearExpiredTokens {
     @Autowired
     private TokenService tokenService;
     @Transactional
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 1000*60*60*24)
     public void clearExpiredTokens(){
         System.out.println("thread of expired tokens is here");
         tokenService.clear();

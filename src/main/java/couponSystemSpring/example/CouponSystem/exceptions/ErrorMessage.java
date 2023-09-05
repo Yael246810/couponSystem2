@@ -1,7 +1,6 @@
 package couponSystemSpring.example.CouponSystem.exceptions;
 
 import lombok.Getter;
-//TODO: to create only one companyIdNotFound, and not so many.
 @Getter
 public enum ErrorMessage {
     ADD_COMPANY_ID_ALREADY_EXISTS("cannot add company because the id already exists"),
