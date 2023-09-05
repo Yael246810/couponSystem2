@@ -14,7 +14,7 @@ import java.util.List;
 public interface CouponRepository extends JpaRepository<Coupon,Long> {
     boolean existsByTitleAndCompany(String title,Company company);
     @Query(value = "select * from coupons inner join customers_coupons on coupons_id= id where customers_id=? and price<?",nativeQuery = true)
-    List<Coupon> findByCustomerIdAndPriceLessThan(double maxPrice, int customerId);
+    List<Coupon> findByCustomerIdAndMaxPrice(int customerId,double maxPrice);
     //List<Coupon> findByIdAndPriceLessThan(double price, int customerId);
     List<Coupon> findByCategoryAndId(Category category, int customerId);
     List<Coupon> findByCompany_IdAndCategory(Category category, int companyId);

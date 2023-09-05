@@ -97,7 +97,7 @@ public class CustomerServiceTest implements CommandLineRunner {
 
         // get customer coupons by max price
         TestUtils.test("Customer Service - get customer coupons by max price - succeeded");
-        System.out.println(customerService.getCustomerCouponsUntilPrice(100.0,2));
+        System.out.println(customerService.getCustomerCouponsUntilPrice(2,100.0));
 
         // get customer details
         TestUtils.test("Customer Service - get customer details - succeeded");

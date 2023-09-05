@@ -30,7 +30,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
         return login;
     }
     @Override
-    public void purchaseCoupon(Long couponId, int customerId) throws Exception {
+    public Coupon purchaseCoupon(Long couponId, int customerId) throws Exception {
         Coupon coupon = couponRepository.findById(couponId).orElseThrow(() -> new CouponSystemException(ErrorMessage.CANNOT_FIND_CUSTOMER_ID));
         // TODO: 28/06/2023 NOT LIKE A BOSS
         Customer customer = customerRepository.findById(customerId).orElseThrow((()->new Exception("customer does not exist")));
@@ -56,6 +56,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
             couponRepository.save(coupon);
         }
         customerRepository.addCouponForCustomer(customerId,couponId);
+        return coupon;
     }
     @Override
     public void deleteCouponPurchased(Long couponId, int customerId) throws CouponSystemException {
@@ -103,12 +104,11 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
     }
 
     @Override
-    public List<Coupon> getCustomerCouponsUntilPrice(double max, int customerId) throws CouponSystemException {
+    public List<Coupon> getCustomerCouponsUntilPrice(int customerId,double max) throws CouponSystemException {
         String customerEmail = customerRepository.findById(customerId).orElseThrow().getEmail();
 
         if (loggedInCustomers.contains(customerEmail)) {
-            // TODO - fix this query
-            return couponRepository.findByCustomerIdAndPriceLessThan(max,customerId);
+            return couponRepository.findByCustomerIdAndMaxPrice(customerId,max);
         }
         return new ArrayList<>();
     }

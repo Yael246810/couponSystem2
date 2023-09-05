@@ -21,7 +21,6 @@ public class TokenServiceImpl implements TokenService{
                 .clientType(user.getType())
                 .time(LocalDateTime.now())
                 .build();
-        //TODO: remove previous tokens
         tokens.put(token,information);
         return token;
     }
