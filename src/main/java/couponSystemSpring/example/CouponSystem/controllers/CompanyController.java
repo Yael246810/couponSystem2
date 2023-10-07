@@ -21,14 +21,14 @@ public class CompanyController extends BaseController{
 
         @PostMapping("coupon")
         @ResponseStatus(HttpStatus.CREATED)
-        CouponCompanyData addCoupon (@RequestBody CouponCompanyData couponCompanyData) throws CouponSystemException {
-            //  validateToken(token);
+        CouponCompanyData addCoupon (@RequestHeader(value = "Authorization") String token,@RequestBody CouponCompanyData couponCompanyData) throws CouponSystemException {
+              validateToken(token);
            return companyService.addCoupon(couponCompanyData.getCoupon());
         }
         @PutMapping("coupon")
         @ResponseStatus(HttpStatus.NO_CONTENT)
-        void updateCoupon (@RequestBody CouponCompanyData couponCompanyData) throws CouponSystemException {
-           // validateToken(token);
+        void updateCoupon (@RequestHeader(value = "Authorization") String token,@RequestBody CouponCompanyData couponCompanyData) throws CouponSystemException {
+            validateToken(token);
             Coupon coupon = couponCompanyData.getCoupon();
             companyService.updateCoupon((int) coupon.getId(),coupon);
         }

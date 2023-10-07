@@ -5,8 +5,6 @@ import couponSystemSpring.example.CouponSystem.repositories.CompanyRepository;
 import couponSystemSpring.example.CouponSystem.repositories.CouponRepository;
 import couponSystemSpring.example.CouponSystem.repositories.CustomerRepository;
 import couponSystemSpring.example.CouponSystem.repositories.UserRepository;
-import couponSystemSpring.example.CouponSystem.utils.Art;
-import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -196,36 +194,154 @@ public class Init implements CommandLineRunner {
         couponRepository.saveAll(coupons);
         //couponRepository.findAll().forEach(System.out::println);
 
-        User u1 = User.builder()
-                .id(0)
+        User u0 = User.builder()
+                .userId(0)
                 .email("admin@admin.com")
                 .password("admin")
                 .type(ClientType.ADMIN)
                 .build();
 
+        User u1 = User.builder()
+                .userId(company1.getId())
+                .email("cocaCola@gmail.com")
+                .password("1234")
+                .type(ClientType.COMPANY)
+                .build();
+
         User u2 = User.builder()
-                .id(company4.getId())
-                .email("Fox@gmail.com")
+                .userId(company2.getId())
+                .email("Shein@gmail.com")
                 .password("1234")
                 .type(ClientType.COMPANY)
                 .build();
 
         User u3 = User.builder()
-                .id(c1.getId())
-                .email("Roni@gmail.com")
+                .userId(company3.getId())
+                .email("MarketPlace@gmail.com")
                 .password("1234")
-                .type(ClientType.CUSTOMER)
+                .type(ClientType.COMPANY)
                 .build();
 
         User u4 = User.builder()
-                .id(c2.getId())
-                .email("Noam@gmail.com")
+                .userId(company4.getId())
+                .email("Fox@gmail.com")
+                .type(ClientType.COMPANY)
                 .password("1234")
-                .type(ClientType.CUSTOMER)
                 .build();
 
-        userRepository.saveAll(List.of(u1,u2,u3,u4));
-        //userRepository.findAll().forEach(System.out::println);
+        User u5 = User.builder()
+                .userId(company5.getId())
+                .email("Zimmer@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u6 = User.builder()
+                .userId(company6.getId())
+                .email("Castro@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u7 = User.builder()
+                .userId(company7.getId())
+                .email("MoonActive@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u8 = User.builder()
+                .userId(company8.getId())
+                .email("McDonald@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u9 = User.builder()
+                .userId(company9.getId())
+                .email("Ivory@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u10 = User.builder()
+                .userId(company10.getId())
+                .email("Intel@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u11 = User.builder()
+                .userId(c1.getId())
+                .email("Roni@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u12 = User.builder()
+                .userId(c2.getId())
+                .email("Noam@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u13 = User.builder()
+                .userId(c3.getId())
+                .email("Revital@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u14 = User.builder()
+                .userId(c4.getId())
+                .email("Yamit@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u15 = User.builder()
+                .userId(c5.getId())
+                .email("Grace@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u16 = User.builder()
+                .userId(c6.getId())
+                .email("Aharon@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u17 = User.builder()
+                .userId(c7.getId())
+                .email("Neomi@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u18 = User.builder()
+                .userId(c8.getId())
+                .email("Adi@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u19 = User.builder()
+                .userId(c9.getId())
+                .email("Rachel@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u20 = User.builder()
+                .userId(c10.getId())
+                .email("Noga@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        userRepository.saveAll(List.of(u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17,u18,u19,u20));
     }
 }
 

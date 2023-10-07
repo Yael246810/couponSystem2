@@ -38,6 +38,7 @@ public enum ErrorMessage {
     CUSTOMER_ALREADY_HAS_THIS_COUPON("cannot purchase this coupon, because the customer already purchased it"),
     CANNOT_PURCHASE_COUPON("cannot purchase this coupon because it does not exist (amount = 0)"),
     CANNOT_PURCHASE_COUPON_WITH_EXPIRED_DATE("cannot purchase a coupon that expired"),
+    CANNOT_ADD_COUPON("cannot add coupon because coupon is expired"),
     CANNOT_GET_CUSTOMER_COUPONS("cannot get customer's coupons because he didn't logged in"),
     CANNOT_GET_CUSTOMER_COUPONS_BY_CATEGORY("cannot get customer coupons by category because customer didn't logged in"),
     CUSTOMER_DETAILS_ARE_NOT_AVAILABLE("customer details are not available because customer didn't logged in"),

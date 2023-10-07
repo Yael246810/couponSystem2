@@ -1,5 +1,6 @@
 package couponSystemSpring.example.CouponSystem.services;
 
+import couponSystemSpring.example.CouponSystem.beans.ClientType;
 import couponSystemSpring.example.CouponSystem.beans.User;
 import couponSystemSpring.example.CouponSystem.exceptions.CouponSystemException;
 import couponSystemSpring.example.CouponSystem.exceptions.ErrorMessage;
@@ -9,7 +10,6 @@ import couponSystemSpring.example.CouponSystem.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 @Service
 public class AuthServiceImpl implements AuthService{
     @Autowired
@@ -28,8 +28,17 @@ public class AuthServiceImpl implements AuthService{
         loginManager.login(user.getEmail(), user.getPassword(), user.getType());
 
         String token = tokenService.addToTokenList(user).toString();
-        LoginResponseData responseData = new LoginResponseData(token, user.getId());
+        long id = userRepository.getIdByEmail(user.getEmail());
+        LoginResponseData responseData = new LoginResponseData(token, id);
         return responseData;
+    }
+
+    @Override
+    public User CreateUser(int id,String email, String password, ClientType clientType) {
+        User user = User.builder()
+                .userId(id)
+                .email(email).type(clientType).password(password).build();
+        return userRepository.save(user);
     }
 
     public class LoginResponseData {

@@ -14,8 +14,11 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class User {
+    @Builder.Default
     @Id
-    private long id;
+    @GeneratedValue
+    private long id = 0;
+    private long userId;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)

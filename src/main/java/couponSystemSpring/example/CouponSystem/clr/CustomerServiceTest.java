@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Date;
 import java.time.LocalDate;
 //TODO: there are problems with: get customer coupons
-@Component
+//@Component
 @Order(4)
 public class CustomerServiceTest implements CommandLineRunner {
     @Autowired

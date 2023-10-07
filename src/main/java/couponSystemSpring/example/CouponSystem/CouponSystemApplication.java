@@ -7,7 +7,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 public class CouponSystemApplication {
-	//TODO: I need to make sure that a customer cannot enter as a company. to write it in the controller
 	public static void main(String[] args) {
 		System.out.println("Start");
 		ApplicationContext ctx = SpringApplication.run(CouponSystemApplication.class, args);

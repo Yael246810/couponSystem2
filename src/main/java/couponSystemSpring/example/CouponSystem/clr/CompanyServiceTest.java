@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 //TODO:there is a problem with: get company coupons method - all kinds(category,maxPrice)
-@Component
+//@Component
 @Order(3)
 public class CompanyServiceTest implements CommandLineRunner {
     @Autowired

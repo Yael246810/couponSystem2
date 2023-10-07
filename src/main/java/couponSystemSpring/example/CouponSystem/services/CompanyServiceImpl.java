@@ -8,10 +8,8 @@ import couponSystemSpring.example.CouponSystem.exceptions.CouponSystemException;
 import couponSystemSpring.example.CouponSystem.exceptions.ErrorMessage;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,6 +44,13 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         Company company = coupon.getCompany();
         String title = coupon.getTitle();
 
+        if (couponRepository.existsById(couponId)) {
+            throw new CouponSystemException(ErrorMessage.CANNOT_ADD_COUPON_ALREADY_EXISTS);
+        }
+        if (coupon.getEndDate().toLocalDate().isBefore(LocalDate.now())) {
+            throw new CouponSystemException(ErrorMessage.CANNOT_ADD_COUPON);
+        }
+
         if (!couponRepository.existsById(couponId)) {
             boolean companyContainsCouponWithThisTitle = couponRepository.existsByTitleAndCompany(title, coupon.getCompany());
 
@@ -58,12 +63,8 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
                 coupons = new ArrayList<>();
             }
             coupons.add(coupon);
-
-
         }
-        if (couponRepository.existsById(couponId)) {
-            throw new CouponSystemException(ErrorMessage.CANNOT_ADD_COUPON_ALREADY_EXISTS);
-        }
+
         return null;
     }
 
@@ -75,9 +76,7 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         if (couponId != coupon.getId()) {
             throw new CouponSystemException(ErrorMessage.UPDATE_COUPON_CANNOT_UPDATE_ID);
         }
-        if (coupon.getCompany().getId() != couponRepository.findById((long) couponId).get().getCompany().getId()) {
-            throw new CouponSystemException(ErrorMessage.CANNOT_UPDATE_COUPON_CANNOT_UPDATE_COMPANY_ID);
-        }
+        //TODO: maybe to return the condition of coupon.get.company
         this.couponRepository.saveAndFlush(coupon);
     }
 

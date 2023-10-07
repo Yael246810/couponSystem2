@@ -5,6 +5,7 @@ import couponSystemSpring.example.CouponSystem.beans.Company;
 import couponSystemSpring.example.CouponSystem.beans.Customer;
 import couponSystemSpring.example.CouponSystem.exceptions.CouponSystemException;
 import couponSystemSpring.example.CouponSystem.services.AdminService;
+import couponSystemSpring.example.CouponSystem.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -18,10 +19,14 @@ public class AdminController extends BaseController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private AuthService authService;
+
     @PostMapping("company")
     @ResponseStatus(HttpStatus.CREATED)
     Company addCompany(@RequestHeader(value = "Authorization") String token,@RequestBody Company company) throws Exception {
         validateToken(token);
+        authService.CreateUser(company.getId(),company.getEmail(), company.getPassword(),ClientType.COMPANY);
         return adminService.add(company);
     }
 
@@ -53,6 +58,7 @@ public class AdminController extends BaseController {
     @ResponseStatus(HttpStatus.CREATED)
      Customer addCustomer(@RequestHeader(value = "Authorization") String token,@RequestBody Customer customer) throws CouponSystemException {
         validateToken(token);
+        authService.CreateUser(customer.getId(),customer.getEmail(), customer.getPassword(),ClientType.CUSTOMER);
         return adminService.addCustomer(customer);
     }
     @PutMapping("customer/{customerId}")

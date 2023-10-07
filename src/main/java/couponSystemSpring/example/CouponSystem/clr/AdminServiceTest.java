@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component
+//@Component
 @Order(2)
 public class AdminServiceTest implements CommandLineRunner {
     @Autowired
