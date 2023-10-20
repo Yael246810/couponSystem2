@@ -10,7 +10,7 @@ public enum ErrorMessage {
     UPDATE_COMPANY_CANNOT_UPDATE_ID("cannot update company because company's id is different"),
     UPDATE_COMPANY_CANNOT_UPDATE_NAME("cannot update company because company's name is different"),
     CANNOT_FIND_COMPANY_ID("cannot find company because company Id does not exist in the system"),
-    PROBLEM_WITH_THE_LOGIN("invalid email/password of the user"),
+    PROBLEM_WITH_THE_LOGIN("invalid email/password of the user/wrong client type"),
     CANNOT_DELETE_COMPANY_ID_NOT_EXISTS("cannot delete company because company ID doesn't exist"),
     CANNOT_DELETE_COMPANY_COUPONS("cannot delete company coupons because company ID doesn't exist"),
     CANNOT_DELETE_COMPANY_COUPONS_THERE_ARE_NO_COUPONS("cannot delete company coupons because the coupon list is empty"),

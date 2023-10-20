@@ -26,8 +26,9 @@ public class AdminController extends BaseController {
     @ResponseStatus(HttpStatus.CREATED)
     Company addCompany(@RequestHeader(value = "Authorization") String token,@RequestBody Company company) throws Exception {
         validateToken(token);
-        authService.CreateUser(company.getId(),company.getEmail(), company.getPassword(),ClientType.COMPANY);
-        return adminService.add(company);
+        Company addedCompany = adminService.add(company);
+        authService.CreateUser(addedCompany.getId(),addedCompany.getEmail(), addedCompany.getPassword(),ClientType.COMPANY);
+        return addedCompany;
     }
 
     @PutMapping("companies/company")
@@ -58,8 +59,9 @@ public class AdminController extends BaseController {
     @ResponseStatus(HttpStatus.CREATED)
      Customer addCustomer(@RequestHeader(value = "Authorization") String token,@RequestBody Customer customer) throws CouponSystemException {
         validateToken(token);
-        authService.CreateUser(customer.getId(),customer.getEmail(), customer.getPassword(),ClientType.CUSTOMER);
-        return adminService.addCustomer(customer);
+        Customer addedCustomer = adminService.addCustomer(customer);
+        authService.CreateUser(addedCustomer.getId(),addedCustomer.getEmail(), addedCustomer.getPassword(),ClientType.CUSTOMER);
+        return addedCustomer;
     }
     @PutMapping("customer/{customerId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
