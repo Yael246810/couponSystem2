@@ -18,7 +18,6 @@ public class User {
     @Id
     @GeneratedValue
     private long id = 0;
-    private long userId;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)

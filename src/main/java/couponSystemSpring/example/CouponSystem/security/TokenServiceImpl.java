@@ -17,7 +17,7 @@ public class TokenServiceImpl implements TokenService{
     public UUID addToTokenList(User user) {
         UUID token  = UUID.randomUUID();
         Information information = Information.builder()
-                .id((int) user.getUserId())
+                .id((int) user.getId())
                 .clientType(user.getType())
                 .time(LocalDateTime.now())
                 .build();

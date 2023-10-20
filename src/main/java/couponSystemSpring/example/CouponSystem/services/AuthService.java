@@ -11,5 +11,7 @@ import java.util.UUID;
 @Service
 public interface AuthService {
     AuthServiceImpl.LoginResponseData login(@RequestBody User user) throws CouponSystemException;
-    User CreateUser(int id,String email, String password, ClientType clientType);
+    User CreateUser(String email, String password, ClientType clientType);
+    User UpdateUser(int id,String email, String password);
+    void deleteUser(int id);
 }

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
     boolean existsByEmailAndPassword(String email,String password);
-    @Query(value = "SELECT user_id FROM `couponsystem2`.users WHERE email =?",nativeQuery = true)
+    @Query(value = "SELECT id FROM `couponsystem2`.users WHERE email =?",nativeQuery = true)
     long getIdByEmail(String email);
+//    @Query(value = "SELECT email FROM `couponsystem2`.users WHERE id =?",nativeQuery = true)
+//    User findByUserId(long userId);
 }

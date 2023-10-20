@@ -34,11 +34,26 @@ public class AuthServiceImpl implements AuthService{
     }
 
     @Override
-    public User CreateUser(int id,String email, String password, ClientType clientType) {
+    public User CreateUser(String email, String password, ClientType clientType) {
         User user = User.builder()
-                .userId(id)
-                .email(email).type(clientType).password(password).build();
+                .email(email)
+                .type(clientType)
+                .password(password)
+                .build();
         return userRepository.save(user);
+    }
+
+    @Override
+    public User UpdateUser(int id, String email, String password) {
+        User user = userRepository.findById((long)id).orElseThrow();
+        user.setEmail(email);
+        user.setPassword(password);
+        return userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public void deleteUser(int id) {
+        userRepository.deleteById((long)id);
     }
 
     public class LoginResponseData {

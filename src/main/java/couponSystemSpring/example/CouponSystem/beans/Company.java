@@ -16,7 +16,6 @@ import java.util.List;
 @Builder
 public class Company {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(length = 30)
     private String name;

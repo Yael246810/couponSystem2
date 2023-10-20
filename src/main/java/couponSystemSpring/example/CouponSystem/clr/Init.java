@@ -28,42 +28,252 @@ public class Init implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Customer c1 = Customer.builder()
+        User u0 = User.builder()
+                .email("admin@admin.com")
+                .password("admin")
+                .type(ClientType.ADMIN)
+                .build();
+
+        User u1 = User.builder()
+                .email("cocaCola@gmail.com")
+                .password("1234")
+                .type(ClientType.COMPANY)
+                .build();
+
+        User u2 = User.builder()
+                .email("Shein@gmail.com")
+                .password("1234")
+                .type(ClientType.COMPANY)
+                .build();
+
+        User u3 = User.builder()
+                .email("MarketPlace@gmail.com")
+                .password("1234")
+                .type(ClientType.COMPANY)
+                .build();
+
+        User u4 = User.builder()
+                .email("Fox@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u5 = User.builder()
+                .email("Zimmer@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u6 = User.builder()
+                .email("Castro@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u7 = User.builder()
+                .email("MoonActive@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u8 = User.builder()
+                .email("McDonald@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u9 = User.builder()
+                .email("Ivory@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u10 = User.builder()
+                .email("Intel@gmail.com")
+                .type(ClientType.COMPANY)
+                .password("1234")
+                .build();
+
+        User u11 = User.builder()
+                .email("Roni@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u12 = User.builder()
+                .email("Noam@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u13 = User.builder()
+                .email("Revital@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u14 = User.builder()
+                .email("Yamit@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u15 = User.builder()
+                .email("Grace@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u16 = User.builder()
+                .email("Aharon@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u17 = User.builder()
+                .email("Neomi@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u18 = User.builder()
+                .email("Adi@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u19 = User.builder()
+                .email("Rachel@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        User u20 = User.builder()
+                .email("Noga@gmail.com")
+                .type(ClientType.CUSTOMER)
+                .password("1234")
+                .build();
+
+        userRepository.saveAll(List.of(u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17,u18,u19,u20));
+
+                Customer c1 = Customer.builder()
                 .firstName("Roni")
                 .lastName("Barak")
-                .email("Roni@gmail.com")
-                .password("1234")
-                .id(1).build();
+                .email(u11.getEmail())
+                .password(u11.getPassword())
+                .id((int) u11.getId()).build();
         Customer c2 = Customer.builder()
                 .firstName("Noam")
                 .lastName("Menachem")
-                .email("Noam@gmail.com")
-                .password("1234")
-                .id(2).build();
-        Customer c3 = new Customer("Revital", "Shemi", "Revital@gmail.com", "1234");
-        Customer c4 = new Customer("Yamit", "Herut", "Yamit@gmail.com", "1234");
-        Customer c5 = new Customer("Grace", "Jelen", "Grace@gmail.com", "1234");
-        Customer c6 = new Customer("Aharon", "Lev", "Aharon@gmail.com", "1234");
-        Customer c7 = new Customer("Neomi", "Lilach", "Neomi@gmail.com", "1234");
-        Customer c8 = new Customer("Adi", "Shvat", "Adi@gmail.com", "1234");
-        Customer c9 = new Customer("Rachel", "Hart", "Rachel@gmail.com", "1234");
-        Customer c10 = new Customer("Noga", "Barak", "Noga@gmail.com", "1234");
+                .email(u12.getEmail())
+                .password(u12.getPassword())
+                .id((int) u12.getId()).build();
+        Customer c3 = Customer.builder()
+                .firstName("Revital")
+                .lastName("Shemi")
+                .email(u13.getEmail())
+                .password(u13.getPassword())
+                .id((int) u13.getId()).build();
+        Customer c4 = Customer.builder()
+                .firstName("Yamit")
+                .lastName("Herut")
+                .email(u14.getEmail())
+                .password(u14.getPassword())
+                .id((int) u14.getId()).build();
+        Customer c5 = Customer.builder()
+                .firstName("Grace")
+                .lastName("Jelen")
+                .email(u15.getEmail())
+                .password(u15.getPassword())
+                .id((int) u15.getId()).build();
+        Customer c6 = Customer.builder()
+                .firstName("Aharon")
+                .lastName("Lev")
+                .email(u16.getEmail())
+                .password(u16.getPassword())
+                .id((int) u16.getId()).build();
+        Customer c7 = Customer.builder()
+                .firstName("Neomi")
+                .lastName("Lilach")
+                .email(u17.getEmail())
+                .password(u17.getPassword())
+                .id((int) u17.getId()).build();
+        Customer c8 = Customer.builder()
+                .firstName("Adi")
+                .lastName("Shvat")
+                .email(u18.getEmail())
+                .password(u18.getPassword())
+                .id((int) u18.getId()).build();
+        Customer c9 = Customer.builder()
+                .firstName("Rachel")
+                .lastName("Hart")
+                .email(u19.getEmail())
+                .password(u19.getPassword())
+                .id((int) u19.getId()).build();
+        Customer c10 = Customer.builder()
+                .firstName("Noga")
+                .lastName("Barak")
+                .email(u20.getEmail())
+                .password(u20.getPassword())
+                .id((int) u20.getId()).build();
+
         List<Customer> customers = List.of(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10);
         customerRepository.saveAll(customers);
         //customerRepository.findAll().forEach(System.out::println);
 
         //private static void loadCompanies() {
         //System.out.println(Art.COMPANIES);
-        Company company1 = new Company("Coca cola", "cocaCola@gmail.com", "1234");
-        Company company2 = new Company("Shein", "Shein@gmail.com", "1234");
-        Company company3 = new Company("MarketPlace", "MarketPlace@gmail.com", "1234");
-        Company company4 = new Company("Fox", "Fox@gmail.com", "1234");
-        Company company5 = new Company("Zimmer", "Zimmer@gmail.com", "1234");
-        Company company6 = new Company("Castro", "Castro@gmail.com", "1234");
-        Company company7 = new Company("MoonActive", "MoonActive@gmail.com", "1234");
-        Company company8 = new Company("McDonald", "McDonald@gmail.com", "1234");
-        Company company9 = new Company("Ivory", "Ivory@gmail.com", "1234");
-        Company company10 = new Company("Intel", "Intel@gmail.com", "1234");
+        Company company1 = Company.builder()
+                .name("Coca cola")
+                .email(u1.getEmail())
+                .password(u1.getPassword())
+                .id((int) u1.getId()).build();
+        Company company2 = Company.builder()
+                .name("Shein")
+                .email(u2.getEmail())
+                .password(u2.getPassword())
+                .id((int) u2.getId()).build();
+        Company company3 = Company.builder()
+                .name("MarketPlace")
+                .email(u3.getEmail())
+                .password(u3.getPassword())
+                .id((int) u3.getId()).build();
+        Company company4 = Company.builder()
+                .name("Fox")
+                .email(u4.getEmail())
+                .password(u4.getPassword())
+                .id((int) u4.getId()).build();
+        Company company5 = Company.builder()
+                .name("Zimmer")
+                .email(u5.getEmail())
+                .password(u5.getPassword())
+                .id((int) u5.getId()).build();
+        Company company6 = Company.builder()
+                .name("Castro")
+                .email(u6.getEmail())
+                .password(u6.getPassword())
+                .id((int) u6.getId()).build();
+        Company company7 = Company.builder()
+                .name("MoonActive")
+                .email(u7.getEmail())
+                .password(u7.getPassword())
+                .id((int) u7.getId()).build();
+        Company company8 = Company.builder()
+                .name("McDonald")
+                .email(u8.getEmail())
+                .password(u8.getPassword())
+                .id((int) u8.getId()).build();
+        Company company9 = Company.builder()
+                .name("Ivory")
+                .email(u9.getEmail())
+                .password(u9.getPassword())
+                .id((int) u9.getId()).build();
+        Company company10 = Company.builder()
+                .name("Intel")
+                .email(u10.getEmail())
+                .password(u10.getPassword())
+                .id((int) u10.getId()).build();
+
         List<Company> companies = List.of(company1, company2, company3, company4, company5, company6, company7, company8, company9, company10);
         companyRepository.saveAll(companies);
         //companyRepository.findAll().forEach(System.out::println);
@@ -194,154 +404,6 @@ public class Init implements CommandLineRunner {
         couponRepository.saveAll(coupons);
         //couponRepository.findAll().forEach(System.out::println);
 
-        User u0 = User.builder()
-                .userId(0)
-                .email("admin@admin.com")
-                .password("admin")
-                .type(ClientType.ADMIN)
-                .build();
-
-        User u1 = User.builder()
-                .userId(company1.getId())
-                .email("cocaCola@gmail.com")
-                .password("1234")
-                .type(ClientType.COMPANY)
-                .build();
-
-        User u2 = User.builder()
-                .userId(company2.getId())
-                .email("Shein@gmail.com")
-                .password("1234")
-                .type(ClientType.COMPANY)
-                .build();
-
-        User u3 = User.builder()
-                .userId(company3.getId())
-                .email("MarketPlace@gmail.com")
-                .password("1234")
-                .type(ClientType.COMPANY)
-                .build();
-
-        User u4 = User.builder()
-                .userId(company4.getId())
-                .email("Fox@gmail.com")
-                .type(ClientType.COMPANY)
-                .password("1234")
-                .build();
-
-        User u5 = User.builder()
-                .userId(company5.getId())
-                .email("Zimmer@gmail.com")
-                .type(ClientType.COMPANY)
-                .password("1234")
-                .build();
-
-        User u6 = User.builder()
-                .userId(company6.getId())
-                .email("Castro@gmail.com")
-                .type(ClientType.COMPANY)
-                .password("1234")
-                .build();
-
-        User u7 = User.builder()
-                .userId(company7.getId())
-                .email("MoonActive@gmail.com")
-                .type(ClientType.COMPANY)
-                .password("1234")
-                .build();
-
-        User u8 = User.builder()
-                .userId(company8.getId())
-                .email("McDonald@gmail.com")
-                .type(ClientType.COMPANY)
-                .password("1234")
-                .build();
-
-        User u9 = User.builder()
-                .userId(company9.getId())
-                .email("Ivory@gmail.com")
-                .type(ClientType.COMPANY)
-                .password("1234")
-                .build();
-
-        User u10 = User.builder()
-                .userId(company10.getId())
-                .email("Intel@gmail.com")
-                .type(ClientType.COMPANY)
-                .password("1234")
-                .build();
-
-        User u11 = User.builder()
-                .userId(c1.getId())
-                .email("Roni@gmail.com")
-                .type(ClientType.CUSTOMER)
-                .password("1234")
-                .build();
-
-        User u12 = User.builder()
-                .userId(c2.getId())
-                .email("Noam@gmail.com")
-                .type(ClientType.CUSTOMER)
-                .password("1234")
-                .build();
-
-        User u13 = User.builder()
-                .userId(c3.getId())
-                .email("Revital@gmail.com")
-                .type(ClientType.CUSTOMER)
-                .password("1234")
-                .build();
-
-        User u14 = User.builder()
-                .userId(c4.getId())
-                .email("Yamit@gmail.com")
-                .type(ClientType.CUSTOMER)
-                .password("1234")
-                .build();
-
-        User u15 = User.builder()
-                .userId(c5.getId())
-                .email("Grace@gmail.com")
-                .type(ClientType.CUSTOMER)
-                .password("1234")
-                .build();
-
-        User u16 = User.builder()
-                .userId(c6.getId())
-                .email("Aharon@gmail.com")
-                .type(ClientType.CUSTOMER)
-                .password("1234")
-                .build();
-
-        User u17 = User.builder()
-                .userId(c7.getId())
-                .email("Neomi@gmail.com")
-                .type(ClientType.CUSTOMER)
-                .password("1234")
-                .build();
-
-        User u18 = User.builder()
-                .userId(c8.getId())
-                .email("Adi@gmail.com")
-                .type(ClientType.CUSTOMER)
-                .password("1234")
-                .build();
-
-        User u19 = User.builder()
-                .userId(c9.getId())
-                .email("Rachel@gmail.com")
-                .type(ClientType.CUSTOMER)
-                .password("1234")
-                .build();
-
-        User u20 = User.builder()
-                .userId(c10.getId())
-                .email("Noga@gmail.com")
-                .type(ClientType.CUSTOMER)
-                .password("1234")
-                .build();
-
-        userRepository.saveAll(List.of(u0,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,u13,u14,u15,u16,u17,u18,u19,u20));
     }
 }
 
