@@ -92,6 +92,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
 
     @Override
     public List<Coupon> getCustomerCouponsByCategory(Category category, int customerId) throws Exception {
+        // TODO: 28/06/2023 NOT LIKE A BOSS
         String customerEmail = customerRepository.findById(customerId).orElseThrow().getEmail();
 
         if (!loggedInCustomers.contains(customerEmail)) {

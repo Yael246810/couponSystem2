@@ -43,7 +43,6 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         long couponId = coupon.getId();
         Company company = coupon.getCompany();
         String title = coupon.getTitle();
-
         if (couponRepository.existsById(couponId)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_ADD_COUPON_ALREADY_EXISTS);
         }

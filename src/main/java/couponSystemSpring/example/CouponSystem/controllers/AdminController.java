@@ -63,7 +63,7 @@ public class AdminController extends BaseController {
     @ResponseStatus(HttpStatus.CREATED)
      Customer addCustomer(@RequestHeader(value = "Authorization") String token,@RequestBody Customer customer) throws CouponSystemException {
         validateToken(token);
-        User user = authService.CreateUser(customer.getEmail(), customer.getPassword(),ClientType.COMPANY);
+        User user = authService.CreateUser(customer.getEmail(), customer.getPassword(),ClientType.CUSTOMER);
         customer.setId((int)user.getId());
         return adminService.addCustomer(customer);
     }

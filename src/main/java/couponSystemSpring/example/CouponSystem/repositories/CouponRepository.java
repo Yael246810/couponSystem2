@@ -15,8 +15,9 @@ public interface CouponRepository extends JpaRepository<Coupon,Long> {
     boolean existsByTitleAndCompany(String title,Company company);
     @Query(value = "select * from coupons inner join customers_coupons on coupons_id= id where customers_id=? and price<?",nativeQuery = true)
     List<Coupon> findByCustomerIdAndMaxPrice(int customerId,double maxPrice);
-    //List<Coupon> findByIdAndPriceLessThan(double price, int customerId);
-//    @Query(value = "select * from coupons inner join customers_coupons on coupons_id= id where customers_id=? and category=?",nativeQuery = true)
+
+//    @Query(value = "select * from coupons inner join customers_coupons on coupons_id= id where customers_id=? and coupons.category=?",nativeQuery = true)
+//    List<Coupon> findByCategoryAndId(Category category, int customerId);
     List<Coupon> findByCategoryAndId(Category category, int customerId);
     List<Coupon> findByCompany_IdAndCategory(Category category, int companyId);
     List<Coupon> findByCompany_IdAndPriceLessThan(double maxPrice, int companyId);
