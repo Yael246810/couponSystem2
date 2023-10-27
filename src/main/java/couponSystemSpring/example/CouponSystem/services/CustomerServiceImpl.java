@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl extends ClientService implements CustomerService{
@@ -70,7 +71,6 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
         }
         coupons.remove(coupon);
         customerRepository.save(customer);
-        couponRepository.delete(coupon);
     }
     @Override
     public List<Coupon> getCustomerCoupons(int customerId) throws Exception {
@@ -94,12 +94,17 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
     public List<Coupon> getCustomerCouponsByCategory(Category category, int customerId) throws Exception {
         // TODO: 28/06/2023 NOT LIKE A BOSS
         String customerEmail = customerRepository.findById(customerId).orElseThrow().getEmail();
+        Optional<Customer> customer = customerRepository.findById(customerId);
 
         if (!loggedInCustomers.contains(customerEmail)) {
             throw new CouponSystemException(ErrorMessage.CANNOT_GET_CUSTOMER_COUPONS_BY_CATEGORY);
         }
         if (getCustomerCoupons(customerId) != null && !getCustomerCoupons(customerId).isEmpty()) {
-            return couponRepository.findByCategoryAndId(category,customerId);
+//            return couponRepository.findByCategoryAndId(category,customerId);
+            return customer.get().getCoupons()
+                    .stream()
+                    .filter(coupon -> coupon.getCategory() == category)
+                    .collect(Collectors.toList());
         }
         return new ArrayList<>();
     }
