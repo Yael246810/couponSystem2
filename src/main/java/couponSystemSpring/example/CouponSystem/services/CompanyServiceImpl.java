@@ -49,7 +49,9 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         if (coupon.getEndDate().toLocalDate().isBefore(LocalDate.now())) {
             throw new CouponSystemException(ErrorMessage.CANNOT_ADD_COUPON);
         }
-
+        if (coupon.getEndDate().toLocalDate().isBefore(coupon.getStartDate().toLocalDate())) {
+            throw new CouponSystemException(ErrorMessage.UPDATE_COUPON_DATE_NOT_VALID);
+        }
         if (!couponRepository.existsById(couponId)) {
             boolean companyContainsCouponWithThisTitle = couponRepository.existsByTitleAndCompany(title, coupon.getCompany());
 
@@ -74,6 +76,12 @@ public class CompanyServiceImpl extends ClientService implements CompanyService 
         }
         if (couponId != coupon.getId()) {
             throw new CouponSystemException(ErrorMessage.UPDATE_COUPON_CANNOT_UPDATE_ID);
+        }
+        if (coupon.getEndDate().toLocalDate().isBefore(LocalDate.now())) {
+            throw new CouponSystemException(ErrorMessage.UPDATE_COUPON_CANNOT_UPDATE_DATE);
+        }
+        if (coupon.getEndDate().toLocalDate().isBefore(coupon.getStartDate().toLocalDate())) {
+            throw new CouponSystemException(ErrorMessage.UPDATE_COUPON_DATE_NOT_VALID);
         }
         //TODO: maybe to return the condition of coupon.get.company
         this.couponRepository.saveAndFlush(coupon);
