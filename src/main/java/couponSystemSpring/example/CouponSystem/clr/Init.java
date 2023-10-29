@@ -370,11 +370,11 @@ public class Init implements CommandLineRunner {
                 .title("Coca Cola - Buy One Get One Free")
                 .description("Buy one Coca Cola and get another one for free")
                 .startDate(Date.valueOf(LocalDate.now().minusWeeks(1)))
-                .endDate(Date.valueOf(LocalDate.now().minusDays(1)))
+                .endDate(endDate)
                 .amount(1000)
                 .price(10.00)
                 .id(0)
-                .image("https://media.giphy.com/media/9M0m0Ub8rCkEUZaSZD/giphy.gif")
+                .image("https://media.giphy.com/media/l3mZjPMqNDnDtPxAI/giphy.gif")
                 .build();
         Coupon coupon9 = Coupon.builder()
                 .company(company9)
