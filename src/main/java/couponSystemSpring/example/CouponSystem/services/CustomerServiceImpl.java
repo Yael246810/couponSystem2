@@ -56,6 +56,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
             couponRepository.save(coupon);
         }
         customerRepository.addCouponForCustomer(customerId,couponId);
+        coupon.setAmount(coupon.getAmount()-1); // TODO: it doesn't work
         return coupon;
     }
     @Override
@@ -68,6 +69,7 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
         if (!isCouponExists){
             throw new CouponSystemException(ErrorMessage.CUSTOMER_DOES_NOT_HAVE_THIS_COUPON);
         }
+        coupon.setAmount(coupon.getAmount()+1);
         coupons.remove(coupon);
         customerRepository.save(customer);
     }
