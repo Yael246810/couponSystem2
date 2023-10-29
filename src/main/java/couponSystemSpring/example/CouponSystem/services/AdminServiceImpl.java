@@ -51,7 +51,10 @@ public class AdminServiceImpl extends ClientService implements AdminService{
             throw new CouponSystemException(ErrorMessage.CANNOT_DELETE_COMPANY_ID_NOT_EXISTS);
         }
         Company company = companyRepository.findById(companyId);
-        companyRepository.delete(company);
+        companyRepository.delete(company); // TODO: delete the coupon from customers_coupons then delete company
+//        companyRepository.deleteCompany1(companyId);
+//        companyRepository.deleteCompany2(companyId);
+//        companyRepository.deleteCompany3(companyId);
     }
 
     @Override
