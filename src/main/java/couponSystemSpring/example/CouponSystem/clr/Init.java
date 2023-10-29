@@ -303,7 +303,7 @@ public class Init implements CommandLineRunner {
                 .endDate(endDate)
                 .amount(500)
                 .price(50)
-                .image("https://media.giphy.com/media/l0HlK8rC1z6vSMdKM/giphy.gif")
+                .image("https://media.giphy.com/media/MoaQ9bwKYeWJ6qynbz/giphy.gif")
                 .id(0).build();
         Coupon coupon3 = Coupon.builder()
                 .company(company3)
@@ -314,7 +314,7 @@ public class Init implements CommandLineRunner {
                 .endDate(endDate)
                 .amount(300)
                 .price(100)
-                .image("https://media.giphy.com/media/3o6Zt6MLD9uODMj6zC/giphy.gif")
+                .image("https://media.giphy.com/media/uNVDY9MRGv7ADO4loE/giphy.gif")
                 .id(0).build();
         Coupon coupon4 = Coupon.builder()
                 .company(company4)
@@ -326,7 +326,7 @@ public class Init implements CommandLineRunner {
                 .amount(100)
                 .price(20)
                 .id(0)
-                .image("https://media.giphy.com/media/3o7qDVX9sN0f0n2Il6/giphy.gif")
+                .image("https://media.giphy.com/media/3o7rc0qU6m5hneMsuc/giphy.gif")
                 .build();
         Coupon coupon5 = Coupon.builder()
                 .company(company5)
@@ -338,7 +338,7 @@ public class Init implements CommandLineRunner {
                 .amount(200)
                 .price(500.00)
                 .id(0)
-                .image("https://media.giphy.com/media/3o7btRJdNZ5h5A9jDO/giphy.gif")
+                .image("https://media.giphy.com/media/SsaWuR3owjU7a0G8z1/giphy.gif")
                 .build();
         Coupon coupon6 = Coupon.builder()
                 .company(company6)
@@ -350,7 +350,7 @@ public class Init implements CommandLineRunner {
                 .amount(500)
                 .price(100.00)
                 .id(0)
-                .image("https://media.giphy.com/media/3o7abHxRc5CYg1qmYQ/giphy.gif")
+                .image("https://media.giphy.com/media/Y9vLsg1LO8mlQ3udfm/giphy.gif")
                 .build();
         Coupon coupon7 = Coupon.builder()
                 .company(company7)
@@ -362,7 +362,7 @@ public class Init implements CommandLineRunner {
                 .amount(1000)
                 .price(10.00)
                 .id(0)
-                .image("https://media.giphy.com/media/l3fZzLWxRD8ypvM3C/giphy.gif")
+                .image("https://media.giphy.com/media/MkvZFvzHIWbRK/giphy.gif")
                 .build();
         Coupon coupon8 = Coupon.builder()
                 .company(company10)
@@ -386,7 +386,7 @@ public class Init implements CommandLineRunner {
                 .amount(100)
                 .price(40.00)
                 .id(0)
-                .image("https://media.giphy.com/media/3oKIPfRg8aJW77Nv3q/giphy.gif")
+                .image("https://media.giphy.com/media/heIX5HfWgEYlW/giphy.gif")
                 .build();
         Coupon coupon10 = Coupon.builder()
                 .company(company10)
