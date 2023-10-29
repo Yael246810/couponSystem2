@@ -38,6 +38,7 @@ public enum ErrorMessage {
     CANNOT_GET_COMPANY_DETAILS_INVALID_ID("cannot get company details because company id doesn't exists"),
     CANNOT_GET_COMPANY_DETAILS_NOT_LOGGED_IN("cannot get company details because company didn't logged in"),
     CUSTOMER_ALREADY_HAS_THIS_COUPON("cannot purchase this coupon, because the customer already purchased it"),
+    CANNOT_PURCHASE_COUPON_ID_NOT_VALID("coupon id does not exist"),
     CANNOT_PURCHASE_COUPON("cannot purchase this coupon because it does not exist (amount = 0)"),
     CANNOT_PURCHASE_COUPON_WITH_EXPIRED_DATE("cannot purchase a coupon that expired"),
     CANNOT_ADD_COUPON("cannot add coupon because coupon is expired"),

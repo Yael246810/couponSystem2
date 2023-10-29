@@ -32,15 +32,14 @@ public class CustomerServiceImpl extends ClientService implements CustomerServic
     }
     @Override
     public Coupon purchaseCoupon(Long couponId, int customerId) throws Exception {
-        Coupon coupon = couponRepository.findById(couponId).orElseThrow(() -> new CouponSystemException(ErrorMessage.CANNOT_FIND_CUSTOMER_ID));
+        Coupon coupon = couponRepository.findById(couponId).orElseThrow(() -> new CouponSystemException(ErrorMessage.CANNOT_PURCHASE_COUPON_ID_NOT_VALID));
         // TODO: 28/06/2023 NOT LIKE A BOSS
         Customer customer = customerRepository.findById(customerId).orElseThrow((()->new Exception("customer does not exist")));
         List<Coupon> customerCoupons = customer.getCoupons();
 
        // List<Coupon> customerCoupons = customerRepository.findByCouponsId(customerId);
         if (customerCoupons != null && !customerCoupons.isEmpty()) {
-            //TODO: maybe I can don't need what we did with the var?
-            for (var a : customerCoupons) {
+            for (Coupon a : customerCoupons) {
                 if(a.getId() == coupon.getId()){
                     throw new CouponSystemException(ErrorMessage.CUSTOMER_ALREADY_HAS_THIS_COUPON);
                 }
