@@ -22,4 +22,6 @@ public interface CouponRepository extends JpaRepository<Coupon,Long> {
     List<Coupon> findByCompany_IdAndCategory(Category category, int companyId);
     List<Coupon> findByCompany_IdAndPriceLessThan(double maxPrice, int companyId);
     void deleteByEndDateBefore(LocalDate endDate);
+    @Query(value = "SELECT * FROM couponsystem2.coupons where coupons.company_id=?",nativeQuery = true)
+    List<Coupon> findByCompany_Id(int companyId);
 }

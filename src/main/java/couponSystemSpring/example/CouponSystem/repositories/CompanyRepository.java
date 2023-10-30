@@ -14,12 +14,6 @@ public interface CompanyRepository extends JpaRepository<Company,Integer> {
     @Query(value = "SELECT id FROM `couponsystem2`.companies WHERE email =?",nativeQuery = true)
     int getIdByEmail(String email);
     Company findById(int companyId);
-    @Query(value = "DELETE FROM couponsystem2.customers_coupons WHERE coupons_id IN (SELECT id FROM couponsystem2.coupons WHERE company_id = ?)",nativeQuery = true)
-    void deleteCompany1(int companyId);
-    @Query(value = "DELETE FROM couponsystem2.coupons WHERE company_id = ?",nativeQuery = true)
-    void deleteCompany2(int companyId);
-    @Query(value = "DELETE FROM couponsystem2.companies WHERE id = ?",nativeQuery = true)
-    void deleteCompany3(int companyId);
     @Query(value = "SELECT * FROM `couponsystem2`.coupons WHERE company_id = ?",nativeQuery = true)
     List<Coupon> findByCouponsCompanyId(int companyId);
     // get the company coupons

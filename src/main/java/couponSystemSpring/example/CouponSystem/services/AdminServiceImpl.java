@@ -1,11 +1,13 @@
 package couponSystemSpring.example.CouponSystem.services;
 
 import couponSystemSpring.example.CouponSystem.beans.Company;
+import couponSystemSpring.example.CouponSystem.beans.Coupon;
 import couponSystemSpring.example.CouponSystem.beans.Customer;
 import couponSystemSpring.example.CouponSystem.exceptions.CouponSystemException;
 import couponSystemSpring.example.CouponSystem.exceptions.ErrorMessage;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,10 +53,18 @@ public class AdminServiceImpl extends ClientService implements AdminService{
             throw new CouponSystemException(ErrorMessage.CANNOT_DELETE_COMPANY_ID_NOT_EXISTS);
         }
         Company company = companyRepository.findById(companyId);
-        companyRepository.delete(company); // TODO: delete the coupon from customers_coupons then delete company
-//        companyRepository.deleteCompany1(companyId);
-//        companyRepository.deleteCompany2(companyId);
-//        companyRepository.deleteCompany3(companyId);
+        List<Coupon>companyCoupons = couponRepository.findByCompany_Id(companyId);
+        for (Coupon coupon:companyCoupons) {
+            if (!coupon.getCustomers().isEmpty()){
+                for (Customer customer: coupon.getCustomers()) {
+                    customer.getCoupons().remove(coupon);
+                    customerRepository.save(customer);
+                }
+            }
+
+            coupon.setCustomers(new ArrayList<>());
+        }
+        companyRepository.delete(company);
     }
 
     @Override
